@@ -1,0 +1,22 @@
+body {
+    /* background-color: #0d5619; */
+    background-color: #0055c1;
+}
+#header .logo a span {
+    /* color: #1bbd36 !important; */
+    color: #0055c1 !important;
+}
+.form-check-inline {
+    margin-right: 0;
+}
+.label {
+    margin-left: -10px;
+}
+.green {
+    /* color: #1bbd36; */
+    color: #0055c1;
+}
+/* .warning {
+    color: red;
+    font-weight: 600;
+} */
