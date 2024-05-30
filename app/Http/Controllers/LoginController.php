@@ -94,7 +94,7 @@ class LoginController extends MyController
         User::create($data);
         $this->ajax_response($this->STATUS_SUCCESS, $this->STATUS_CODE_SUCCESS);
         
-        $this->sendEmail($email, $firstName . " " . $lastName);
+        // $this->sendEmail($email, $firstName . " " . $lastName);
     }
 
     public function logout(){

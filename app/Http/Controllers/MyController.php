@@ -300,7 +300,8 @@ class MyController extends Controller
         
         Zespół ONKO PLUS');
 
-        return redirect('/compensa');
+        
+        // return redirect('/compensa');
     }
 
     public function compensaPDF($file, $outputFilePath, $data)
@@ -308,10 +309,10 @@ class MyController extends Controller
         $fpdi = new FPDI;
         $count = $fpdi->setSourceFile($file); // Total page of pdf file
 
-        $fpdi->AddFont('DejaVu', '', 'DejaVuSansCondensed.php');
+        // $fpdi->AddFont('DejaVu', '', 'DejaVuSansCondensed.php');
 
-        // $fontPath = public_path('fonts\DejaVuSansCondensed.ttf');
-        // $fpdi->AddFont('DejaVu', '', $fontPath);
+        $fontPath = public_path('DejaVuSansCondensed.ttf');
+        $fpdi->AddFont('DejaVu', '', $fontPath);
 
         // ~~~~~~~~~~~~~~~~~~~~Page 1~~~~~~~~~~~~~~~~~~~~~~~
         $page1 = $fpdi->importPage(1);
