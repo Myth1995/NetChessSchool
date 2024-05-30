@@ -2379,6 +2379,10 @@ textarea:focus {
 	display: flex;
 }
 
+.circle-radius{
+	border-radius: 50%;
+}
+
 .justify-content-flex-start{
 	justify-content: flex-start;
 }
@@ -2397,6 +2401,10 @@ textarea:focus {
 
 .align-items-flex-end{
 	align-items: flex-end;
+}
+
+.align-items-center{
+	align-items: center;
 }
 
 /**************************************
@@ -2463,3 +2471,24 @@ textarea:focus {
     margin-left: 15px;
     margin-right: 10px;
 }
+
+/**************************************
+ * Service List Section Css
+ **************************************/
+
+
+ .student-avatar img{
+	width: 70px;
+ }
+
+ .student-info{
+	padding-left: 2rem;
+ }
+
+ .student-info h6{
+	padding: 0!important;
+ }
+
+ .m-p-t-2{
+	padding-top: 2rem;
+ }

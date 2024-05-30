@@ -229,6 +229,11 @@
         <div class="row d-flex align-items-center">
             <div class="col-md-12">
                 <div class="section-title">
+                    <div class="sec-bubble">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
                     <h2>Benefits Of Playing Chess</h2>
                 </div>
             </div>
@@ -263,6 +268,11 @@
         <div class="row d-flex align-items-center">
             <div class="col-md-12">
                 <div class="section-title">
+                    <div class="sec-bubble">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
                     <small style="font-weight: bold; padding-bottom: 1rem;">LEARNING USING THE CHESS CLASS</small>
                     <h2>What is a CHESS CLASS on <span style="color: #ff5722">Chess.Com</span></h2>
                 </div>
@@ -288,6 +298,11 @@
         <div class="faq-content row" style="display: flex; justify-content: center; align-items: center;">
             <div class="col-md-12">
                 <div class="section-title">
+                    <div class="sec-bubble">
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                        <div class="bubble"></div>
+                    </div>
                     <small style="font-weight: bold; padding-bottom: 1rem;">WHAT IS YOUR QUESTION?</small>
                     <h2>Questions & Answers</h2>
                 </div>
