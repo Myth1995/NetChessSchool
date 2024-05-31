@@ -2602,7 +2602,6 @@ textarea:focus {
 	}	
 }
 
-
 .header-menu-list .nav-link.active{
 	color: var(--my-color)!important;
 }
