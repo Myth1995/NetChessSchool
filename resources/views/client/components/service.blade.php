@@ -24,11 +24,10 @@
                     <div class="services-info">
                         <div class="img-bar">
                             <img class="service-bg" src="assets/chess-assets/img/training/1.jpg">
-                            <!-- <img class="service-icon" decoding="async" src="assets/chess-assets/img/sr-1-4.svg" alt="service"> -->
                         </div>
                         <h6>TRAINING PACKAGE I</h6>
                         <p>Stationary classes in schools for children (4 x 45 minutes)</p>
-                        <a href="#services" class="button">Buy now</a>
+                        <a href="{{route('course.index')}}" class="button">Go now</a>
                     </div>
                 </div>
             </div>
@@ -37,11 +36,10 @@
                     <div class="services-info">
                         <div class="img-bar">
                             <img class="service-bg" src="assets/chess-assets/img/training/2.jpg">
-                            <!-- <img class="service-icon" decoding="async" src="assets/chess-assets/img/sr-1-2.svg" alt="service"> -->
                         </div>
                         <h6>TRAINING PACKAGE II</h6>
                         <p>Online classes for children and adults</p>
-                        <a href="#services" class="button">Buy now</a>
+                        <a href="{{route('course.list')}}" class="button">Go now</a>
                     </div>
                 </div>
             </div>
@@ -52,11 +50,10 @@
                     <div class="services-info">
                         <div class="img-bar">
                             <img class="service-bg" src="assets/chess-assets/img/training/3.jpg">
-                            <!-- <img class="service-icon" decoding="async" src="assets/chess-assets/img/sr-1-3.svg" alt="service"> -->
                         </div>
                         <h6>TOURNAMENT PACKAGE</h6>
                         <p>Online tournaments for adults</p>
-                        <a href="#services" class="button">Buy now</a>
+                        <a href="{{route('course.index')}}" class="button">Go now</a>
                     </div>
                 </div>
             </div>
@@ -65,11 +62,10 @@
                     <div class="services-info">
                         <div class="img-bar">
                             <img class="service-bg" src="assets/chess-assets/img/training/4.jpg">
-                            <!-- <img class="service-icon" decoding="async" src="assets/chess-assets/img/sr-1-4.svg" alt="service"> -->
                         </div>
                         <h6>MARKETING PACKAGE</h6>
                         <p>For chess players and others</p>
-                        <a href="#services" class="button">Buy now</a>
+                        <a href="{{route('course.index')}}" class="button">Go now</a>
                     </div>
                 </div>
             </div>

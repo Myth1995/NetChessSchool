@@ -52,8 +52,6 @@ var sendRequest = function (url, data, success_callback, error_callback) {
     });
 };
 
-
-
 toastr.options = {
     closeButton: false,
     debug: false,

@@ -26,7 +26,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&amp;display=swap"
         rel="stylesheet">
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{asset('assets/chess-assets/img/levy-logo___.png')}}">
     <!-- Site All Style Sheet Css -->
     <link href="{{asset('assets/chess-assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/chess-assets/css/font-awesome.min.css')}}" rel="stylesheet">
@@ -76,6 +75,17 @@ var _token = $('meta[name="csrf-token"]').attr('content');
 <script>
 $(document).ready(function() {
     settingBodyHeaderMarginTop();
+
+    $("#myTab").find(".nav-link").on("click", function(event){
+        event.preventDefault();
+        $("#myTab").find(".nav-link").removeClass("active");
+        $(this).addClass("active");
+        let target = $(this).data("target");
+        $("#myTabContent").find(".tab-pane").removeClass("show");
+        $("#myTabContent").find(".tab-pane").removeClass("active");
+        $("#"+target+"-tab-panel").addClass("show");
+        $("#"+target+"-tab-panel").addClass("active");
+    });
 });
 
 $(window).on("resize", function() {
@@ -90,6 +100,7 @@ function change_language(language) {
 function settingBodyHeaderMarginTop() {
     let header_height = $(".header-menu-list").outerHeight();
     $("#body-header").css("margin-top", header_height);
+    
 }
 </script>
 @yield('custom_js')

@@ -1,6 +1,6 @@
 @extends('client.layout.app')
 
-@section('title', 'profile')
+@section('title', 'Profile')
 @section('custom_css')
 <link href="{{asset('assets/chess-assets/css/profile.css')}}" rel="stylesheet">
 <style>
@@ -8,7 +8,7 @@
 </style>
 @endsection
 @section('content')
-
+@include('client.components.body-header')
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
@@ -38,10 +38,6 @@
                         <li class="nav-item">
                             <a class="nav-link active" data-target = "couse" id="couse-tab" data-toggle="tab" href="#couse-tab-panel" role="tab"
                                 aria-controls="couse-tab-panel" aria-selected="true">My courses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-target = "tests" id="tests-tab" data-toggle="tab" href="#tests-tab-panel" role="tab"
-                                aria-controls="tests-tab-panel" aria-selected="false">Tests</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-target = "subscription" id="subscription-tab" data-toggle="tab" href="#subscription-tab-panel" role="tab"
@@ -129,9 +125,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="tests-tab-panel" role="tabpanel" aria-labelledby="tests-tab">
-                        test panel
-                    </div>
                     <div class="tab-pane fade" id="subscription-tab-panel" role="tabpanel" aria-labelledby="subscription-tab">
                         subscription panel
                     </div>
@@ -151,16 +144,7 @@
 $(document).ready(function() {
     console.log("profile page init!");
 
-    $("#myTab").find(".nav-link").on("click", function(event){
-        event.preventDefault();
-        $("#myTab").find(".nav-link").removeClass("active");
-        $(this).addClass("active");
-        let target = $(this).data("target");
-        $("#myTabContent").find(".tab-pane").removeClass("show");
-        $("#myTabContent").find(".tab-pane").removeClass("active");
-        $("#"+target+"-tab-panel").addClass("show");
-        $("#"+target+"-tab-panel").addClass("active");
-    });
+    
 });
 </script>
 @endsection

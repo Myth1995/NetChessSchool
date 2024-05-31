@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
+            $table->integer('service_id')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
             $table->integer('duration')->default(0);
             $table->enum('duration_type', ['hour','minute','secound'])->default('minute');
             $table->dateTime('start_time')->nullable();
+            $table->string('url');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

@@ -1,6 +1,5 @@
 @extends('client.layout.app')
-
-@section('title', 'service')
+@section('title', 'Service')
 @section('custom_css')
     <style>
         #student-rating{

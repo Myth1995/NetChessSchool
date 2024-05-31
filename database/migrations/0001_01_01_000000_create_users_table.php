@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('phone_number')->nullable();
             $table->string('permission')->default("customer");
+            $table->dateTime("last_login")->nullable();
             $table->tinyInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();

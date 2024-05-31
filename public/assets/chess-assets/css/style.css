@@ -27,6 +27,11 @@
     17.Footer Section Css
  *************************************/
 
+ :root {
+	--my-color: #ff5722;
+  }
+  
+
 .video-btn:hover{
 	background: #ff5722!important;
 }
@@ -38,6 +43,8 @@
 .my-color{
 	color: #ff5722!important;
 }
+
+
 
 /**************************************
  * 01. Generale Css
@@ -310,6 +317,26 @@ button:focus {
 
 .bg-grey {
 	background-color: #f8f8f9;
+}
+
+.bg-brand{
+	background-color: #442e66!important;
+}
+
+.color-white{
+	color: white!important;
+}
+
+.color-grey{
+	color: #999!important;
+}
+
+.color-yellow{
+	color: #ffb606!important;
+}
+
+.color-bland{
+	color: #3d1846!important;
 }
 
 .bg-gradient {
@@ -2383,8 +2410,16 @@ textarea:focus {
 	border-radius: 50%;
 }
 
+.border-bottom-style{
+	border-bottom: 1px solid white;
+}
+
 .justify-content-flex-start{
 	justify-content: flex-start;
+}
+
+.justify-content-flex-end{
+	justify-content: flex-end;
 }
 
 .justify-content-center{
@@ -2492,3 +2527,82 @@ textarea:focus {
  .m-p-t-2{
 	padding-top: 2rem;
  }
+
+ .m-p-b-3{
+	padding-bottom: 3rem;
+ }
+
+ .text-left{
+	text-align: left;
+ }
+
+ .service-detail-title-bar{
+	padding: 50px 0;
+ }
+
+ .service-title-item{
+	padding-left: 1.5rem;
+ }
+
+ .service-title-item span{
+	font-size: 25px;
+ }
+
+ .service-avatar img{
+	width: 70px;
+	height: 70px;
+ }
+
+ .service-avatar i{
+	font-weight: 400;
+    font-size: 2.25em;
+	font-family: "Font Awesome 5 Free";
+    content: "\f02e";
+ }
+ 
+ .service-item-img{
+	width: 100px;
+ }
+
+ .read-more-button{
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	width: max-content;
+	color: #333;
+	font-weight: 700;
+}
+
+.meta-item{
+	display: flex;
+	align-items: center;
+	padding-right: 1.5rem;
+}
+
+.meta-item i{
+	padding-right: 5px;
+	font-size: 20px;
+}
+
+
+@media (max-width: 1000px){
+	.services-info .detail-bar{
+		padding-top: 3rem;
+		text-align: center;
+	}	
+
+	.services-info .course-meta-info{
+		justify-content: center;
+	}
+
+	.services-info .instructor-bar{
+		padding-top: 3rem;
+		text-align: center;
+		align-items: center;
+	}	
+}
+
+
+.header-menu-list .nav-link.active{
+	color: var(--my-color)!important;
+}
