@@ -24,6 +24,8 @@ class User extends Authenticatable
         ,'user_name'
         ,'first_name'
         ,'last_name'
+        ,'gender'
+        ,'avatar'
         ,'point'
         ,'birthday'
         ,'age'
@@ -56,6 +58,17 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'instructor' => 'integer'
         ];
     }
+
+    public function avatar(){
+        return $this->hasOne(User::class,'instructor','id');
+    }
+
+    public function Service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+
 }

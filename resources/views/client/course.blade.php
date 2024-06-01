@@ -55,10 +55,10 @@
         <div class="row d-flex align-items-center">
             <div
                 class="col-md-12 row title-bar display-flex; justify-content-center align-items-center text-center m-p-b-3">
-                <h2 class="color-white">TRAINING PACKAGE I</h2>
-                <p class="color-white">Stationary classes in schools for children (4 x 45 minutes)</p>
+                <h2 class="color-white">{{@$course->title}}</h2>
+                <p class="color-white">{{@$course->mini_desc}}</p>
                 <div class="button-bar display-flex justify-content-center">
-                    <a href="#" class="button-two">Buy now</a>
+                    <a href="#" class="button-two course-buy">Buy now</a>
                 </div>
             </div>
             <div class="col-md-12 row title-bar">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="service-title-item">
                             <h6 class="color-white" style="font-size: 12px; padding-bottom: 5px;">price</h6>
-                            <span class="color-white">200$</span>
+                            <span class="color-white">{{@$course->price}}$</span>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                         </div>
                         <div class="service-title-item">
                             <h6 class="color-white" style="font-size: 12px; padding-bottom: 5px;">category</h6>
-                            <span class="color-white">Kurs na Poziomie 3</span>
+                            <span class="color-white">{{@$course->category}}</span>
                         </div>
                     </div>
                 </div>
@@ -119,10 +119,10 @@
                         aria-labelledby="couse-tab">
                         <div class="row">
                             <div class="col-md-2">
-                                <img class="course-img" src="{{asset('assets/chess-assets/img/training/1.jpg')}}" style="width: 200px;">
+                                <img class="course-img" src="{{asset('assets/chess-assets/img/'.@$course->image_url)}}" style="width: 200px;">
                             </div>
                             <div class="col-md-10">
-                                Description <br> Stationary classes in schools for children (4 x 45 minutes)
+                                {{@$course->description}}
                             </div>
                         </div>
                     </div>
@@ -167,6 +167,18 @@
 <script>
 $(document).ready(function() {
     console.log("Service Detail page init!");
+
+    $(".course-buy").on("click", function(e){
+        e.preventDefault();
+        $.post("order.request", {
+            _token: '{{ csrf_token() }}'
+
+        },function(data){
+
+        }, function(code){
+
+        });
+    });
 });
 </script>
 @endsection

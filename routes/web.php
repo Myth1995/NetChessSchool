@@ -11,10 +11,10 @@ use App\Http\Controllers\LoginController;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('lang/change', [IndexController::class, 'change_lang'])->name('changeLang');
-Route::get('login', [LoginController::class, 'index'])->name('login.index');
+Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('logout', [LoginController::class, 'logout'])->name('login.out');
 Route::get('service', [ServiceController::class, 'index'])->name('service.index');
-Route::get('course', [CourseController::class, 'index'])->name('course.index');
+Route::get('course/{id}', [CourseController::class, 'index'])->name('course.index');
 Route::get('course/detail', [CourseController::class, 'detail'])->name('course.detail');
 Route::get('course/list', [CourseController::class, 'list'])->name('course.list');
 

@@ -28,7 +28,7 @@
                 <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'service.index' ? 'active' : '' }}" href="{{route('service.index')}}">Service</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll" href="#contact">Contact</a></li>
                 @if(!Auth()->check())
-                    <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'login.index' ? 'active' : '' }}" href="{{route('login.index')}}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'login' ? 'active' : '' }}" href="{{route('login')}}">Login</a></li>
                 @endif
                 @if(Auth()->check())
                     <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'profile.index' ? 'active' : '' }}" href="{{route('profile.index')}}">{{ Auth()->user()->user_name }}</a></li>

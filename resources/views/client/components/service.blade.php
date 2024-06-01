@@ -18,58 +18,37 @@
                         chess game to the next level!</p>
                 </div>
             </div>
+            @foreach ($services as $index => $service)
+            @if($index % 2 == 0)
             <div class="col-lg-1 em"></div>
             <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.2s">
                 <div class="single-services-item">
                     <div class="services-info">
                         <div class="img-bar">
-                            <img class="service-bg" src="assets/chess-assets/img/training/1.jpg">
+                            <img class="service-bg" src="{{asset('assets/chess-assets/img/'.$service->image_url)}}">
                         </div>
-                        <h6>TRAINING PACKAGE I</h6>
-                        <p>Stationary classes in schools for children (4 x 45 minutes)</p>
-                        <a href="{{route('course.index')}}" class="button">Go now</a>
+                        <h6>{{$service["title"]}}</h6>
+                        <p>{{$service["mini_desc"]}}</p>
+                        <a href="{{route('course.index', $service->id)}}" class="button">Go now</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.4s">
+            @else
+            <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.2s">
                 <div class="single-services-item">
                     <div class="services-info">
                         <div class="img-bar">
-                            <img class="service-bg" src="assets/chess-assets/img/training/2.jpg">
+                            <img class="service-bg" src="{{asset('assets/chess-assets/img/'.$service->image_url)}}">
                         </div>
-                        <h6>TRAINING PACKAGE II</h6>
-                        <p>Online classes for children and adults</p>
-                        <a href="{{route('course.list')}}" class="button">Go now</a>
+                        <h6>{{$service["title"]}}</h6>
+                        <p>{{$service["mini_desc"]}}</p>
+                        <a href="{{route('course.index', $service->id)}}" class="button">Go now</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-1 em"></div>
-            <div class="col-lg-1 em"></div>
-            <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.6s">
-                <div class="single-services-item">
-                    <div class="services-info">
-                        <div class="img-bar">
-                            <img class="service-bg" src="assets/chess-assets/img/training/3.jpg">
-                        </div>
-                        <h6>TOURNAMENT PACKAGE</h6>
-                        <p>Online tournaments for adults</p>
-                        <a href="{{route('course.index')}}" class="button">Go now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-5 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.8s">
-                <div class="single-services-item">
-                    <div class="services-info">
-                        <div class="img-bar">
-                            <img class="service-bg" src="assets/chess-assets/img/training/4.jpg">
-                        </div>
-                        <h6>MARKETING PACKAGE</h6>
-                        <p>For chess players and others</p>
-                        <a href="{{route('course.index')}}" class="button">Go now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-1 em"></div>
+            @endif
+            @endforeach
         </div>
     </div>
 </section>

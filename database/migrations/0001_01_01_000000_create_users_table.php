@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('user_name')->nullable();
             $table->string('first_name');
             $table->string('last_name')->nullable();
+            $table->enum('gender', ['male','female'])->default('male');
+            $table->string('avatar')->nullable();
             $table->integer('point')->default(0);
             $table->date('birthday');
             $table->string('age');
