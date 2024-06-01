@@ -57,11 +57,13 @@
     <!-- End Back to Top -->
 </body>
 
+
 <script src="{{asset('assets/js/basic/jquery.min.js')}}"></script>
 <script>
 var _token = $('meta[name="csrf-token"]').attr('content');
 </script>
 <script src="{{asset('assets/toastr/toastr.min.js')}}"></script>
+<script src="{{asset('assets/custom/app.js')}}"></script>
 <script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{asset('assets/js/languages.js')}}"></script>
 <script src="{{asset('assets/chess-assets/js/bootstrap.bundle.min.js')}}"></script>
@@ -86,6 +88,7 @@ $(document).ready(function() {
         $("#"+target+"-tab-panel").addClass("show");
         $("#"+target+"-tab-panel").addClass("active");
     });
+
 });
 
 $(window).on("resize", function() {
@@ -102,6 +105,8 @@ function settingBodyHeaderMarginTop() {
     $("#body-header").css("margin-top", header_height);
     
 }
+
+
 </script>
 @yield('custom_js')
 

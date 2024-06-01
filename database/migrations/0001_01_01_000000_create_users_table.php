@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->enum('gender', ['male','female'])->default('male');
             $table->string('avatar')->nullable();
-            $table->integer('point')->default(0);
+            $table->integer('ncs_coin')->default(0);
+            $table->integer('spenser_id')->nullable();
             $table->date('birthday');
             $table->string('age');
             $table->string('country');

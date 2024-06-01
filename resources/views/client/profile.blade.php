@@ -28,9 +28,9 @@
                         {{ @$user->email }}
                     </h5>
                     <div class="score-bar position-relative" >
-                        <small class="position-absolute">score</small><br />
+                        <small class="position-absolute">NCS COIN</small><br />
                         <h1>
-                            {{ @$user->point }}
+                            {{ @$user->ncs_coin }}
                         </h1>
                     </div>
                     <p class="proile-rating">RANKINGS : <span>8/10</span></p>

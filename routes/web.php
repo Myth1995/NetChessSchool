@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\MlnDashboardController;
+use App\Http\Controllers\MlmDashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\ProfileController;
@@ -20,7 +20,7 @@ Route::get('course/list', [CourseController::class, 'list'])->name('course.list'
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('mln/dashboard', [MlnDashboardController::class, 'index'])->name('mln.dashboard');
+    Route::get('mlm/dashboard', [MlmDashboardController::class, 'index'])->name('mlm.dashboard');
 });
 
 Route::post('login_register', [LoginController::class, "register"])->name("login.register");

@@ -29,7 +29,9 @@ class MyController extends Controller
     protected $STATUS_CODE_REGISTER_EMAIL_REPEAT_ERROR = "18";
 
     protected $STATUS_CODE_REGISTER_EMAIL_VERIFY_ERROR = "20";
-    
+
+    // 30 ~ 40 MLM
+    protected $STATUS_CODE_REGISTER_MLM_DASHBOARD_ERROR = "30";
 
     public function __construct()
     {

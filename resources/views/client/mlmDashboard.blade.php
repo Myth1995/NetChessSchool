@@ -1,6 +1,6 @@
 @extends('client.layout.app')
 
-@section('title', 'MLN DASHBOARD')
+@section('title', 'MLM DASHBOARD')
 @section('custom_css')
 <link rel="stylesheet" href="{{asset('assets/leftsidebar/style.css')}}">
 <style>
@@ -127,7 +127,7 @@
 <script src="{{asset('assets/leftsidebar/main.js')}}"></script>
 <script>
 $(document).ready(function() {
-    console.log("MLN DASHBOARD page init!");
+    console.log("MLM DASHBOARD page init!");
 
 
 });
