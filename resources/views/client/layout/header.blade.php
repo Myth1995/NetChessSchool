@@ -33,7 +33,7 @@
                 @if(Auth()->check())
                     <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'profile.index' ? 'active' : '' }}" href="{{route('profile.index')}}">{{ Auth()->user()->user_name }}</a></li>
                 @endif
-                @if(Auth()->check())
+                @if(Auth()->check() && Auth()->user()->sponser_id == null)
                     <li class="nav-item"><a class="nav-link js-scroll btn-go-to-mlm {{ $route_name == 'mlm.dashboard' ? 'active' : '' }}" href="{{route('mlm.dashboard')}}">MLM DASHBOARD</a></li>
                 @endif
                 @if(Auth()->check())

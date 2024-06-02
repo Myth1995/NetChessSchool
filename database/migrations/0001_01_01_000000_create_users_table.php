@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('gender', ['male','female'])->default('male');
             $table->string('avatar')->nullable();
             $table->integer('ncs_coin')->default(0);
-            $table->integer('spenser_id')->nullable();
+            $table->integer('sponser_id')->nullable();
             $table->date('birthday');
             $table->string('age');
             $table->string('country');
@@ -33,6 +33,27 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        $password = "admin" . random_int(100000, 999999);
+
+        DB::table('users')->insert(
+            [
+                'email' => 'networkchessschool@admin.com',
+                'user_name' => 'teacher',
+                'first_name' => 'John',
+                'last_name' => 'Smith',
+                'password' => $password,
+                'avatar' => 'teacher.jpg',
+                'sponser_id' => 0,
+                'birthday' => '1987-05-05',
+                'age' => 'adult',
+                'country' => 'poland',
+                'phone_number' => '12345678',
+                'permission' => 'admin',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]
+        );
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

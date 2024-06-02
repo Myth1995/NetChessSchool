@@ -68,10 +68,10 @@
                     <h2>Login</h2>
 
                     <div class="input_box">
-                        <input name="email" class="requestUsername" type="email" placeholder="Enter your email" required />
+                        <input name="identity" class="requestUsername" type="text" placeholder="Enter your email or username" required />
                         <i class="uil uil-envelope-alt email"></i>
                     </div>
-                    @error('email')
+                    @error('identity')
                         <a href="#" class="forgot_pw" style="text-decoration: none;">{{$message}}</a>
                     @enderror
                     <div class="input_box">

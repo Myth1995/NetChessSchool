@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invite_link', function (Blueprint $table) {
+        Schema::create('invites', function (Blueprint $table) {
             $table->id();
             $table->integer('from');
-            $table->string('invite_url');
-            $table->integer('status')->default(0);
+            $table->integer('to');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

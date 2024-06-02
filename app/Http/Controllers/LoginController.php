@@ -47,12 +47,19 @@ class LoginController extends MyController
     {
 
         $request->validate([
-            'email' => 'required',
+            // 'email' => 'required',
             'password' => 'required'
         ]);
-        $email = $request->input('email');
+        $email = $request->input('identity');
         $password = $request->input('password');
-        if(Auth::attempt(['email' => $email, 'password' => $password])){
+        if(Auth::attempt([filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'user_name' => $email,
+            'password' => $password
+        ])){
+            User::where('email', $email)->orWhere('user_name', $email)->update(
+                array(
+                    'last_login' => date('Y-m-d H:i:s')
+                )
+            );
             return redirect('/');
         }else {
             session()->flash('password_incorrect', 'Password or Email is not correct.');

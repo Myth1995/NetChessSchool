@@ -17,11 +17,9 @@ class MlmDashboardController extends MyController
         }
 
         if($user_row->spenser_id == null){
-            session()->flash('check-mlm','no');
             return redirect()->back();
         }
 
-        session()->flash('check-mlm','yes');
         return view("client.mlmDashboard");
 
     }
