@@ -248,7 +248,7 @@
                                             <div class="form-holder form-holder-2">
                                                 <fieldset>
                                                     <legend>Password</legend>
-                                                    <input type="text" class="form-control" id="user-password"
+                                                    <input type="password" class="form-control" id="user-password"
                                                         name="user-password" placeholder="Enter Your Password" required>
                                                 </fieldset>
                                             </div>

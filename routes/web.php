@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\MlmDashboardController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('mlm/dashboard', [MlmDashboardController::class, 'index'])->name('mlm.dashboard');
     Route::get('mlm/join/{sponser}', [MlmDashboardController::class, 'join'])->name('mlm.join');
     Route::post('mlm/register', [MlmDashboardController::class, 'registerMLM'])->name('mlm.register');
+    Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 });
 
 Route::post('login_register', [LoginController::class, "register"])->name("login.register");

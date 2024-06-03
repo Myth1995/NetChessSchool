@@ -26,12 +26,12 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'index' ? 'active' : '' }}" href="/">Home</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'service.index' ? 'active' : '' }}" href="{{route('service.index')}}">Service</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll" href="#contact">Contact</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'contact.index' ? 'active' : '' }}" href="{{route('contact.index')}}">Contact</a></li>
                 @if(!Auth()->check())
                     <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'login' ? 'active' : '' }}" href="{{route('login')}}">Login</a></li>
                 @endif
                 @if(Auth()->check())
-                    <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'profile.index' ? 'active' : '' }}" href="{{route('profile.index')}}">{{ Auth()->user()->user_name }}</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'profile.index' ? 'active' : '' }}" href="{{route('profile.index')}}">Profile</a></li>
                 @endif
                 @if(Auth()->check() && Auth()->user()->sponser_id != null)
                     <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'mlm.dashboard' ? 'active' : '' }}" href="{{route('mlm.dashboard')}}">MLM DASHBOARD</a></li>

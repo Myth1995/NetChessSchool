@@ -103,6 +103,7 @@ function change_language(language) {
 function settingBodyHeaderMarginTop() {
     let header_height = $(".header-menu-list").outerHeight();
     $("#body-header").css("margin-top", header_height);
+    $("#contact-page-banner").css("margin-top", header_height);
     
 }
 
