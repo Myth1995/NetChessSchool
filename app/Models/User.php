@@ -72,4 +72,8 @@ class User extends Authenticatable
         return $this->belongsTo(Service::class);
     }
 
+    public function mySponser(){
+        return $this->hasOne(User::class,'','id');
+    }
+
 }

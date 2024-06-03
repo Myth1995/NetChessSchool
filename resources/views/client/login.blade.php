@@ -192,7 +192,7 @@
                                             <div class="form-holder form-holder-2">
                                                 <fieldset>
                                                     <legend>Your Email</legend>
-                                                    <input type="text" name="your_email" id="your_email"
+                                                    <input type="email" name="your_email" id="your_email"
                                                         class="form-control" pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
                                                         placeholder="example@email.com" required>
                                                 </fieldset>

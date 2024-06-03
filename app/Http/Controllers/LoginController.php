@@ -93,12 +93,10 @@ class LoginController extends MyController
         );
 
         $check_row = User::where("email", $email)->where("status",1)->first();
-        if(isset($check_row->id)){
-            $this->ajax_response($this->STATUS_ERROR, $this->STATUS_CODE_REGISTER_EMAIL_REPEAT_ERROR);
-            return;
+        if(!isset($check_row->id)){
+            User::create($data);
         }
-
-        User::create($data);
+        
         $this->ajax_response($this->STATUS_SUCCESS, $this->STATUS_CODE_SUCCESS);
         
         // $this->sendEmail($email, $firstName . " " . $lastName);

@@ -2426,6 +2426,10 @@ textarea:focus {
 	justify-content: center;
 }
 
+.justify-content-space-between{
+	justify-content: space-between;
+}
+
 .flex-direction-column{
 	flex-direction: column;
 }
@@ -2522,6 +2526,10 @@ textarea:focus {
 
  .student-info h6{
 	padding: 0!important;
+ }
+
+ .font-weight-bold{
+	font-weight: bold;
  }
 
  .m-p-t-2{

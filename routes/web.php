@@ -21,6 +21,8 @@ Route::get('course/list', [CourseController::class, 'list'])->name('course.list'
 Route::group(['middleware' => ['auth']], function () {
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('mlm/dashboard', [MlmDashboardController::class, 'index'])->name('mlm.dashboard');
+    Route::get('mlm/join/{sponser}', [MlmDashboardController::class, 'join'])->name('mlm.join');
+    Route::post('mlm/register', [MlmDashboardController::class, 'registerMLM'])->name('mlm.register');
 });
 
 Route::post('login_register', [LoginController::class, "register"])->name("login.register");
