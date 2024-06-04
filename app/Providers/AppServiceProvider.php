@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->publishes([
+            __DIR__.'\app' => public_path('vendor/package'),
+        ], 'laravel-assets');
     }
 }

@@ -58,7 +58,7 @@
                 <h2 class="color-white">{{@$course->title}}</h2>
                 <p class="color-white">{{@$course->mini_desc}}</p>
                 <div class="button-bar display-flex justify-content-center">
-                    <a href="#" class="button-two course-buy">Buy now</a>
+                    <a href="{{ route('stripe.checkout', ['price' => $course['price'] , 'product' => $course['title'] , 'product_id' => $course['id']]) }}" class="button-two course-buy">Buy now</a>
                 </div>
             </div>
             <div class="col-md-12 row title-bar">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="service-title-item">
                             <h6 class="color-white" style="font-size: 12px; padding-bottom: 5px;">price</h6>
-                            <span class="color-white">{{@$course->price}}$</span>
+                            <span class="color-white">{{@$course->price}}PLN</span>
                         </div>
                     </div>
                 </div>
@@ -167,18 +167,6 @@
 <script>
 $(document).ready(function() {
     console.log("Service Detail page init!");
-
-    $(".course-buy").on("click", function(e){
-        e.preventDefault();
-        $.post("order.request", {
-            _token: '{{ csrf_token() }}'
-
-        },function(data){
-
-        }, function(code){
-
-        });
-    });
 });
 </script>
 @endsection

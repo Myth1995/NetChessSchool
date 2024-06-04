@@ -38,7 +38,7 @@ return new class extends Migration
 
         DB::table('users')->insert(
             [
-                'email' => 'networkchessschool@admin.com',
+                'email' => 'Info@Networkchessschool.Com',
                 'user_name' => 'teacher',
                 'first_name' => 'John',
                 'last_name' => 'Smith',

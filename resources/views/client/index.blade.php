@@ -32,8 +32,8 @@
                                         drift.<br>With L-shaped movements, it jumps so slyly,<br>Grabbing enemies with a
                                         daring attempt.</h1>
                                     <div class="banner-btn home-slider-btn">
-                                        <a href="#services" class="button mr-15">Sign Up For Courses</a>
-                                        <a href="#contact" class="button-two">Contact Us</a>
+                                        <a href="{{route('login')}}" class="button mr-15">Sign Up For Courses</a>
+                                        <a href="{{route('contact.index')}}" class="button-two">Contact Us</a>
                                     </div>
                                 </div>
                             </div>
@@ -51,8 +51,8 @@
                                     <h1>Tower, tower high and strong, Guarding the board<br>all day long. In straight
                                         lines he moves<br>with power, Protecting the king with all his eyes.</h1>
                                     <div class="banner-btn home-slider-btn">
-                                        <a href="#services" class="button mr-15">Sign Up For Courses</a>
-                                        <a href="#contact" class="button-two">Contact Us</a>
+                                        <a href="{{route('login')}}" class="button mr-15">Sign Up For Courses</a>
+                                        <a href="{{route('contact.index')}}" class="button-two">Contact Us</a>
                                     </div>
                                 </div>
                             </div>
@@ -71,8 +71,8 @@
                                         his real<br>scar. Black or white, he dances with joy,<br>Unpredictable
                                         movements, that's how he will be.</h1>
                                     <div class="banner-btn home-slider-btn">
-                                        <a href="#services" class="button mr-15">Sign Up For Courses</a>
-                                        <a href="#contact" class="button-two">Contact Us</a>
+                                        <a href="{{route('login')}}" class="button mr-15">Sign Up For Courses</a>
+                                        <a href="{{route('contact.index')}}" class="button-two">Contact Us</a>
                                     </div>
                                 </div>
                             </div>
@@ -91,8 +91,8 @@
                                         With power and grace<br>in all directions, He is the heart of the game, the
                                         center<br>of feeling.</h1>
                                     <div class="banner-btn home-slider-btn">
-                                        <a href="#services" class="button mr-15">Sign Up For Courses</a>
-                                        <a href="#contact" class="button-two">Contact Us</a>
+                                        <a href="{{route('login')}}" class="button mr-15">Sign Up For Courses</a>
+                                        <a href="{{route('contact.index')}}" class="button-two">Contact Us</a>
                                     </div>
                                 </div>
                             </div>
@@ -111,8 +111,8 @@
                                         must understand.<br>Surrounded by pawns, he holds on tight,<br>Because if he
                                         falls, the game is lost, we found</h1>
                                     <div class="banner-btn home-slider-btn">
-                                        <a href="#services" class="button mr-15">Sign Up For Courses</a>
-                                        <a href="#contact" class="button-two">Contact Us</a>
+                                        <a href="{{route('login')}}" class="button mr-15">Sign Up For Courses</a>
+                                        <a href="{{route('contact.index')}}" class="button-two">Contact Us</a>
                                     </div>
                                 </div>
                             </div>
