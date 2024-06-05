@@ -35,15 +35,13 @@ class MyController extends Controller
     // 30 ~ 40 MLM
     protected $STATUS_CODE_REGISTER_MLM_DASHBOARD_ERROR = "30";
 
-    // 40 ~ 50
+    // 40 ~ 50 STRIPE
     protected $STATUS_CODE_STRIPE_REQUEST_ERROR = "31";
 
+    // 50 ~ 60 NCS
+    protected $STATUS_CODE_NCS_COIN_ERROR = "40";
+
     public function __construct()
-    {
-
-    }
-
-    public function index()
     {
 
     }

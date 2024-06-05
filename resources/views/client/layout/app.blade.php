@@ -90,6 +90,10 @@ $(document).ready(function() {
         $("#"+target+"-tab-panel").addClass("active");
     });
 
+    $(".btn-modal-hidden").on("click", function(){
+        $(".alert-modal").modal("hide");
+    });
+
 });
 
 $(window).on("resize", function() {

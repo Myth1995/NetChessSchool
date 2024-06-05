@@ -179,10 +179,10 @@ button:focus {
 }
 
 .button-small {
-	padding: 5px 20px;
-	border-radius: 5px;
+	padding: 5px 20px!important;
+	border-radius: 5px!important;
 	margin-top: 0;
-	height: max-content;
+	height: max-content!important;
 }
 
 .small-info{
@@ -2577,9 +2577,13 @@ textarea:focus {
  }
 
  .text-left{
-	text-align: left;
+	text-align: left!important;
  }
 
+ .text-center{
+	text-align: center!important;
+ }
+ 
  .service-detail-title-bar{
 	padding: 50px 0;
  }
@@ -2648,4 +2652,41 @@ textarea:focus {
 
 .header-menu-list .nav-link.active{
 	color: var(--my-color)!important;
+}
+
+.badge {
+	display: inline-block;
+	padding: 0.25em 0.4em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: 0.25rem;
+	-webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+	-o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out; 
+}
+
+.background-yellow{
+	background-color: #ffb606!important;
+}
+
+.background-red{
+	background-color: #ff5722!important;
+}
+
+.background-green{
+	background-color: #04AA6D!important;
+}
+
+.background-brand{
+	background-color: #9763f6!important;
+}
+
+.background-blue{
+	background-color: #3085d6!important;
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
+use Illuminate\Http\Request;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('lang/change', [IndexController::class, 'change_lang'])->name('changeLang');
@@ -23,6 +24,8 @@ Route::get('course/list/{id}', [CourseController::class, 'couseList'])->name('co
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('profile', [ProfileController::class, 'view'])->name('profile.index');
+    Route::post('profile/sub_all', [ProfileController::class, 'getSubscriptionAll'])->name('profile.sub_all');
+
     Route::get('mlm/dashboard', [MlmDashboardController::class, 'index'])->name('mlm.dashboard');
     Route::get('mlm/join/{sponser}', [MlmDashboardController::class, 'join'])->name('mlm.join');
     Route::post('mlm/register', [MlmDashboardController::class, 'registerMLM'])->name('mlm.register');
@@ -30,6 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
     Route::get('stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
+
+    Route::post('course/purchase', [CourseController::class, 'coursePurchase'])->name('course.purchase');
+    
 });
 
 Route::post('login_register', [LoginController::class, "register"])->name("login.register");

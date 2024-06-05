@@ -10,7 +10,7 @@ class Service extends Model
 
     use HasFactory;
 
-    public function instructor(){
-        return $this->hasOne(User::class, 'id', 'instructor');
+    public function Subscriptions(){
+        return $this->hasMany('id');
     }
 }

@@ -63,17 +63,4 @@ class User extends Authenticatable
         ];
     }
 
-    public function avatar(){
-        return $this->hasOne(User::class,'instructor','id');
-    }
-
-    public function Service()
-    {
-        return $this->belongsTo(Service::class);
-    }
-
-    public function mySponser(){
-        return $this->hasOne(User::class,'','id');
-    }
-
 }
