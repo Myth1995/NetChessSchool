@@ -85,7 +85,7 @@ class CourseController extends MyController
         if(isset($user_subscription->id)){
             //Subscription Updating
             $permit_period = $user_subscription->permit_period;
-            $update_period = date("Y-m-d H:i:s", strtotime($permit_period . " + 1 Monday"));
+            $update_period = date("Y-m-d H:i:s", strtotime($permit_period . " + 1 month"));
             $data = array(
                 'permit_period' => $update_period
             );
@@ -96,7 +96,7 @@ class CourseController extends MyController
             $subscription = new Subscription();
             $subscription->user_id = Auth()->user()->id;
             $subscription->course_id = $course_row->id;     
-            $subscription->permit_period = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . " + 1 Monday"));
+            $subscription->permit_period = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s") . " + 1 month"));
             $subscription->status = 1;
             $subscription->save();
         }

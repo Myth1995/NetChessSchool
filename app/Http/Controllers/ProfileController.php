@@ -35,6 +35,7 @@ class ProfileController extends MyController
         $data["permit_end_row"] = $permit_end_row;
         $data["purchase_course"] = $course;
         $data["end_of_course"] = count($permit_end_row);
+        $data["purchase_course_id"] = $request->course;
         
         $now = date("Y-m-d H:i:s");
         if(isset($course)){

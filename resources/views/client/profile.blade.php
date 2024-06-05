@@ -252,7 +252,7 @@ function purchaseAlarm(alarm_html){
                     formData.append('_token', '{{csrf_token()}}');
                     formData.append('course_id', course_id);
                     sendRequest('{{route("course.purchase")}}', formData ,function(data){
-                        getAllSubscription();
+                        // getAllSubscription();+1
                         swal({
                             title: 'Purchase Successful!',
                             text: 'thank you.',
@@ -267,7 +267,18 @@ function purchaseAlarm(alarm_html){
                         });
                     }, function(code){
                         if(code == "40"){
-                            toastr.warning("You don't have enouth ncs coins.");
+                            swal({
+                            title: 'Purchase Failed!',
+                            text: 'Excuse me, Do you have not enuough coin.',
+                            type: 'warning',
+                            class: 'Course-Purchasing-success-alarm',
+                            html: alarm_html,
+                            showCancelButton: false,
+                            confirmButtonText: 'okay',
+                            confirmButtonClass: 'button button-small',
+                            confirmButtonColor: "",
+                            cancelButtonColor: ""
+                            });
                         }
                     })
                 }
@@ -287,7 +298,7 @@ $(document).ready(function() {
         $("#subscription-tab-panel").addClass("show");
         $("#subscription-tab-panel").addClass("active");
 
-        var alarm_html = '<small>{{$current_deadline ? "Current deadline: " . $current_deadline : ""}}</small><br><small>Deadline by purchasing: {{@$purchase_deadline}}</small><br><small>Price: {{@$course->Service->price}} NCS</small><br><input hidden class="purchase-course-id" type="text" data-course-id="{{@$purchase_course->course_id}}">';
+        var alarm_html = '<small>{{$current_deadline ? "Current deadline: " . $current_deadline : ""}}</small><br><small>Deadline by purchasing: {{@$purchase_deadline}}</small><br><small>Price: {{@$course->Service->price}} NCS</small><br><input hidden class="purchase-course-id" type="text" data-course-id="{{@$purchase_course_id}}">';
         purchaseAlarm(alarm_html);
     }else{
 
