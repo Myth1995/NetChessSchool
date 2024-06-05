@@ -39,6 +39,7 @@
     <!-- Site Main Style Sheet Css -->
     <link href="{{asset('assets/chess-assets/css/style.css')}}" rel="stylesheet">
     <link href="{{asset('assets/chess-assets/css/responsive.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('assets/sweetalert/sweetalert2.min.css')}}">
     
 
     @yield('custom_css')
@@ -63,8 +64,8 @@
 var _token = $('meta[name="csrf-token"]').attr('content');
 </script>
 <script src="{{asset('assets/toastr/toastr.min.js')}}"></script>
+<script src="{{asset('assets/sweetalert/sweetalert2.min.js')}}"></script>
 <script src="{{asset('assets/custom/app.js')}}"></script>
-<script src="{{asset('assets/sweetalert/sweetalert.min.js')}}"></script>
 <script src="{{asset('assets/js/languages.js')}}"></script>
 <script src="{{asset('assets/chess-assets/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/chess-assets/js/plugins.js')}}"></script>

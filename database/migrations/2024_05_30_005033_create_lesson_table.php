@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('duration_type', ['hour','minute','secound'])->default('minute');
             $table->dateTime('start_time')->nullable();
             $table->string('url');
+            $table->string('tag')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

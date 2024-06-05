@@ -31,7 +31,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'login' ? 'active' : '' }}" href="{{route('login')}}">Login</a></li>
                 @endif
                 @if(Auth()->check())
-                    <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'profile.index' ? 'active' : '' }}" href="{{route('profile.index')}}">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'profile.index' ? 'active' : '' }}" href="{{route('profile.index',['type' => 'normal','course' => 0])}}">Profile</a></li>
                 @endif
                 @if(Auth()->check() && Auth()->user()->sponser_id != null)
                     <li class="nav-item"><a class="nav-link js-scroll {{ $route_name == 'mlm.dashboard' ? 'active' : '' }}" href="{{route('mlm.dashboard')}}">MLM DASHBOARD</a></li>

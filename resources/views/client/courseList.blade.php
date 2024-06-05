@@ -23,7 +23,15 @@
                         <div
                             class="col-lg-4 col-md-6 col-sm-12  text-left display-flex flex-direction-column justify-content-center detail-bar">
                             <h6 style="padding-top: 0;">{{@$course->title}}</h6>
-                            <p class="color-yellow" style="margin-bottom: 8px;">{{@$course->mini_desc}}</p>
+                            @php
+                                $show_desc = $course->mini_desc;
+                                if(strlen($show_desc) > 70){
+                                    $show_desc = substr($show_desc, 0, 70) . "...";
+                                }
+                            @endphp
+                            <p class="color-yellow" style="margin-bottom: 8px;">
+                                {{@$show_desc}}
+                            </p>
                             <div class="course-meta-info display-flex justify-content-flex-start">
                                 <div class="meta-item display-flex ">
                                     <i class="fa fa-bookmark color-bland"></i>

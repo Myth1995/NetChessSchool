@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentNcsHistory;
 use App\Models\PaymentTransactionHistory;
 use App\Models\Service;
 use Exception;
+use Hamcrest\Type\IsNumeric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Stripe\Exception\CardException;
 use Stripe\Product;
 use Stripe\StripeClient;
+use App\Models\User;
 
 class StripePaymentController extends Controller
 {
@@ -21,115 +24,80 @@ class StripePaymentController extends Controller
         $this->stripe = new StripeClient(Config::get("stripe.stripe_secret_key"));
     }
 
-
-    // public function stripe()
-    // {
-    //     $product = Config::get('stripe.product');
-    //     return view('stripe', compact('product'));
-    // }
-
     public function stripeCheckout(Request $request)
     {
-        $product_check = Service::where("id", $request->product_id)->first();
-        if (!$product_check) {
-            return redirect()->back();   
+        if(!is_numeric($request->ncs)) {
+            return redirect()->back();
         }
 
-        $stripe = new \Stripe\StripeClient(Config::get('stripe.stripe_secret_key'));
+        try{
+            $amount = $request->ncs * 10;
+            $stripe = new \Stripe\StripeClient(Config::get('stripe.stripe_secret_key'));
 
-        $redirectUrl = route('stripe.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}';
+            $redirectUrl = route('stripe.checkout.success') . '?session_id={CHECKOUT_SESSION_ID}&ncs='.$request->ncs.'&payment_amount='.$amount;
 
-        $payment_history = new PaymentTransactionHistory();
-        $payment_history->user_id = Auth()->user()->id;
-        $payment_history->course_id = $product_check->id;
-        $payment_history->checkout_link = $redirectUrl;
-        $payment_history->amount = $product_check->price;
-        $payment_history->save();
-        session()->put('history-id', $payment_history->id);
-    
-        $response =  $stripe->checkout->sessions->create([
-            'success_url' => $redirectUrl,
-            'payment_method_types' => ['link', 'card'],
-            'line_items' => [
-                [
-                    'price_data'  => [
-                        'product_data' => [
-                            'name' => $product_check->title,
+            $response =  $stripe->checkout->sessions->create([
+                'success_url' => $redirectUrl,
+                'payment_method_types' => ['link', 'card'],
+                'line_items' => [
+                    [
+                        'price_data'  => [
+                            'product_data' => [
+                                'name' => "NCS PURCHASING",
+                            ],
+                            'unit_amount'  => 100 * $amount,
+                            'currency'     => 'PLN',
                         ],
-                        'unit_amount'  => 100 * $product_check->price,
-                        'currency'     => 'PLN',
+                        'quantity'  => 1
                     ],
-                    'quantity'    => 1
                 ],
-            ],
-            'mode' => 'payment',
-            'allow_promotion_codes' => false
-        ]);
+                'mode' => 'payment',
+                'allow_promotion_codes' => false
+            ]);
 
-        return redirect($response['url']);
+            return redirect($response['url']);
+        }catch(Exception $e){
+            return redirect()->back();
+        }        
     }
 
     public function stripeCheckoutSuccess(Request $request)
     {
+        if(!isset($request->ncs)){
+            return redirect()->route("profile.index",['type' => 'normal','course' => 0]);
+        }
 
-        $stripe = new \Stripe\StripeClient(Config::get('stripe.stripe_secret_key'));
+        try{
+            $stripe = new \Stripe\StripeClient(Config::get('stripe.stripe_secret_key'));
 
-        $session = $stripe->checkout->sessions->retrieve($request->session_id);
+            $session = $stripe->checkout->sessions->retrieve($request->session_id);
+            info($session);
+            
+            $successMessage = "We have received your payment request and will let you know shortly.";
+            
+            $session_row = PaymentNcsHistory::where('session_id', $request->session_id)->first();
+            if(isset($session_row->id)) {
+                return redirect()->route("profile.index",['type' => 'normal','course' => 0]);
+            }
+            
+            $history_row = new PaymentNcsHistory();
+            $history_row->user_id = Auth()->user()->id;
+            $history_row->ncs_amount = $request->ncs;
+            $history_row->payment_amount = $request->payment_amount;
+            $history_row->session_id = $request->session_id;
+            $history_row->save();
+
+            $user_amount = Auth()->user()->ncs_coin + $request->ncs;
+            User::where('id', Auth()->user()->id)->update([
+                'ncs_coin'=> $user_amount
+            ]);
+
+            return redirect()->route("profile.index",['type' => 'normal','course' => 0]);
+        }catch(Exception $e){
+            return redirect()->route("profile.index",['type' => 'normal','course' => 0]);
+        }
         
-        $successMessage = "We have received your payment request and will let you know shortly.";
-
-
-        $history_id = session()->get("history-id");
-        $history_row = PaymentTransactionHistory::where("id", $history_id)->first();
-        if (!isset($history_row->id)) {
-            return redirect()->back();
-        }
-        PaymentTransactionHistory::where("id", $history_row->id)->update([
-            "status" => 1
-        ]);
-
-        if(Auth()->user()->sponser_id == null){
-            return redirect()->route("profile.index");
-        }
-
-        return redirect()->route("mlm.dashboard");
     }
 
-    private function createToken($fullName, $cardNumber, $month, $year, $cvv)
-    {
-
-        $token = null;
-        try {
-            $token = $this->stripe->tokens->create([
-                'card' => [
-                    'number' => $cardNumber,
-                    'exp_month' => $month,
-                    'exp_year' => $year,
-                    'cvc' => $cvv
-                ]
-            ]);
-        } catch (CardException $e) {
-            $token['error'] = $e->getError()->message;
-        } catch (Exception $e) {
-            $token['error'] = $e->getMessage();
-        }
-        return $token;
-    }
-
-    private function createCharge($tokenId, $amount)
-    {
-        $charge = null;
-        try {
-            $charge = $this->stripe->charges->create([
-                'amount' => $amount,
-                'currency' => 'eur',
-                'source' => $tokenId,
-                'description' => 'Stripe_payment'
-            ]);
-        } catch (Exception $e) {
-            $charge['error'] = $e->getMessage();
-        }
-        return $charge;
-    }
 }
 ?>

@@ -22,13 +22,12 @@ Route::get('course/detail', [CourseController::class, 'detail'])->name('course.d
 Route::get('course/list/{id}', [CourseController::class, 'couseList'])->name('course.list');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('profile', [ProfileController::class, 'view'])->name('profile.index');
     Route::get('mlm/dashboard', [MlmDashboardController::class, 'index'])->name('mlm.dashboard');
     Route::get('mlm/join/{sponser}', [MlmDashboardController::class, 'join'])->name('mlm.join');
     Route::post('mlm/register', [MlmDashboardController::class, 'registerMLM'])->name('mlm.register');
     Route::get('contact', [ContactController::class, 'index'])->name('contact.index');
 
-    // Route::get('stripe', [StripePaymentController::class, 'stripe'])->name('stripe.index');
     Route::get('stripe/checkout', [StripePaymentController::class, 'stripeCheckout'])->name('stripe.checkout');
     Route::get('stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
 });

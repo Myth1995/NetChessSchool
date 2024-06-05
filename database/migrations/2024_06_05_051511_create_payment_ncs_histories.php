@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payment_package_histories', function (Blueprint $table) {
+        Schema::create('payment_ncs_histories', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('course_id');
-            $table->string('payment_type')->default('ncs');
-            $table->string('description')->nullable();
-            $table->string('currency')->default('NCS');
-            $table->integer('amount');
-            $table->integer('status')->default(0);
+            $table->integer('ncs_amount');
+            $table->string('payment_type')->default('stripe');
+            $table->text('session_id');
+            $table->integer('payment_amount');
+            $table->string('currency')->default('PLN');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_transaction_histroy');
+        Schema::dropIfExists('payment_ncs_histories');
     }
 };

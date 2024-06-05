@@ -43,7 +43,12 @@
 
 .course-img{
     padding: 5px;
-    border: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
+}
+
+.lesson-tag{
+    padding-left: 1rem;
+    padding-bottom: 1rem;
 }
 
 </style>
@@ -58,7 +63,7 @@
                 <h2 class="color-white">{{@$course->title}}</h2>
                 <p class="color-white">{{@$course->mini_desc}}</p>
                 <div class="button-bar display-flex justify-content-center">
-                    <a href="{{ route('stripe.checkout', ['price' => $course['price'] , 'product' => $course['title'] , 'product_id' => $course['id']]) }}" class="button-two course-buy">Buy now</a>
+                    <a href="{{route('profile.index',['type' => 'subscription','course' => $course->id])}}" class="button-two course-buy">Buy now</a>
                 </div>
             </div>
             <div class="col-md-12 row title-bar">
@@ -80,7 +85,7 @@
                         </div>
                         <div class="service-title-item">
                             <h6 class="color-white" style="font-size: 12px; padding-bottom: 5px;">price</h6>
-                            <span class="color-white">{{@$course->price}}PLN</span>
+                            <span class="color-white">{{@$course->price}} <small>NCS</small></span>
                         </div>
                     </div>
                 </div>
@@ -109,10 +114,19 @@
                             href="#couse-tab-panel" role="tab" aria-controls="couse-tab-panel"
                             aria-selected="true">Description</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-target="tests" id="tests-tab" data-toggle="tab" href="#tests-tab-panel"
-                            role="tab" aria-controls="tests-tab-panel" aria-selected="false">Programing</a>
-                    </li>
+                    @php
+                        $lesson_show = false;
+                        $lessons = App\Models\Lesson::where("course_id", $course->id)->where("status",1)->get();
+                        if(count($lessons) > 0){
+                             $lesson_show = true;
+                        }
+                    @endphp
+                    @if ($lesson_show)
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="tests" id="tests-tab" data-toggle="tab" href="#tests-tab-panel"
+                                role="tab" aria-controls="tests-tab-panel" aria-selected="false">Lesson</a>
+                        </li>
+                    @endif
                 </ul>
                 <div class="tab-content profile-tab service-detail-bar" id="myTabContent">
                     <div class="tab-pane fade show active" id="couse-tab-panel" role="tabpanel"
@@ -128,33 +142,26 @@
                     </div>
                     <div class="tab-pane" id="tests-tab-panel" role="tabpanel" aria-labelledby="tests-tab" >
                         <div class="row">
-                            <div class="col-md-12 row lesson-item">
-                                <div class="col-md-1 display-flex align-items-center justify-content-flex-end">
-                                    <img src="{{asset('assets/chess-assets/img/bookmark-regular.svg')}}" style="width: 20px;">
+                            @php
+                                $lesson_tag = null;
+                            @endphp
+                            @foreach ($lessons as $lesson)
+                                @if($lesson->tag != $lesson_tag)
+                                    <div class="lesson-tag">{{@$lesson->tag}}</div>
+                                @endif
+                                @php
+                                    $lesson_tag = $lesson->tag;
+                                @endphp
+                                <div class="col-md-12 row lesson-item">
+                                    <div class="col-md-1 display-flex align-items-center justify-content-flex-end">
+                                        <img src="{{asset('assets/chess-assets/img/bookmark-regular.svg')}}" style="width: 20px;">
+                                    </div>
+                                    <div class="col-md-11 display-flex flex-direction-column justify-content-center border-bottom-style lesson-item-info">
+                                        <span class="color-white">{{$lesson->title}}</span>
+                                        <h6 class="color-white" style="font-size: 12px;">{{@$lesson->duration}} {{@$lesson->duration_type}}</h6>
+                                    </div>
                                 </div>
-                                <div class="col-md-11 display-flex flex-direction-column justify-content-center border-bottom-style lesson-item-info">
-                                    <span class="color-white">Matte motifs</span>
-                                    <h6 class="color-white" style="font-size: 12px;">2 minutes</h6>
-                                </div>
-                            </div>
-                            <div class="col-md-12 row lesson-item">
-                                <div class="col-md-1 display-flex align-items-center justify-content-flex-end">
-                                    <img src="{{asset('assets/chess-assets/img/bookmark-regular.svg')}}" style="width: 20px;">
-                                </div>
-                                <div class="col-md-11 display-flex flex-direction-column justify-content-center border-bottom-style lesson-item-info">
-                                    <span class="color-white">Matte motifs</span>
-                                    <h6 class="color-white" style="font-size: 12px;">2 minutes</h6>
-                                </div>
-                            </div>
-                            <div class="col-md-12 row lesson-item">
-                                <div class="col-md-1 display-flex align-items-center justify-content-flex-end">
-                                    <img src="{{asset('assets/chess-assets/img/bookmark-regular.svg')}}" style="width: 20px;">
-                                </div>
-                                <div class="col-md-11 display-flex flex-direction-column justify-content-center border-bottom-style lesson-item-info">
-                                    <span class="color-white">Matte motifs</span>
-                                    <h6 class="color-white" style="font-size: 12px;">2 minutes</h6>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
