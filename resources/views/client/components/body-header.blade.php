@@ -8,12 +8,12 @@
                         <ul class="breadcumb-menu">
                             <li><a href="{{route('index')}}">
                                     <font style="vertical-align: inherit;">
-                                        <font style="vertical-align: inherit;">home</font>
+                                        <font style="vertical-align: inherit;">Home</font>
                                     </font>
                                 </a></li>
                             <li>
                                 <font style="vertical-align: inherit;">
-                                    <font style="vertical-align: inherit;">Services</font>
+                                    <font style="vertical-align: inherit;">@yield('title')</font>
                                 </font>
                             </li>
                         </ul>

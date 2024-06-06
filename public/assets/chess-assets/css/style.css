@@ -2690,3 +2690,7 @@ textarea:focus {
 .background-blue{
 	background-color: #3085d6!important;
 }
+
+.background-skyblue{
+	background-color: lightskyblue!important;
+}

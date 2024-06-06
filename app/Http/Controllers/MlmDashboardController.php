@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FriendProfitHistory;
 use App\Models\Invite;
 use Auth;
 use GuzzleHttp\Middleware;
@@ -28,7 +29,52 @@ class MlmDashboardController extends MyController
             return redirect("/");
         }
 
-        return view("client.mlmDashboard");
+        
+        $first_friends = Invite::where("from", Auth()->user()->id)->get();
+        $myfriends = [];
+        if(count($first_friends)){
+            foreach($first_friends as $index_1 => $friend){
+                $myfriends[$index_1][0] = $friend->user->user_name;
+                $second_row = Invite::where("from", $friend->to)->get();
+                $myfriends[$index_1][1] = [];
+                if(count($second_row)){
+                    foreach($second_row as $index_2 => $friend){
+                        $myfriends[$index_1][1][$index_2][0] = $friend->user->user_name;
+                        $third_row = Invite::where("from", $friend->to)->get();
+                        $myfriends[$index_1][1][$index_2][1] = [];
+                        if(count($third_row)){
+                            foreach($third_row as $index_3 => $friend){
+                                $myfriends[$index_1][1][$index_2][1][$index_3][0] = $friend->user->user_name;
+                                $forth_row = Invite::where("from", $friend->to)->get();
+                                $myfriends[$index_1][1][$index_2][1][$index_3][1] = [];
+                                if(count($forth_row)){
+                                    foreach($forth_row as $index_4 => $friend){
+                                        $myfriends[$index_1][1][$index_2][1][$index_3][1][$index_4][0] = $friend->user->user_name;
+                                        $fifth_row = Invite::where("from", $friend->to)->get();
+                                        $myfriends[$index_1][1][$index_2][1][$index_3][1][$index_4][1] = [];
+                                        if(count($fifth_row)){
+                                            foreach($fifth_row as $index_5 => $friend){
+                                                $myfriends[$index_1][1][$index_2][1][$index_3][1][$index_4][1][$index_5][0] = $friend->user->user_name;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        $data["my_friends"] = $myfriends;
+
+        $profit_earned_log = FriendProfitHistory::where("to",Auth()->user()->id)->limit(10)->get();
+        $data["profit_earned_log"] = $profit_earned_log;
+
+        $profit_provided_log = FriendProfitHistory::where("from",Auth()->user()->id)->limit(10)->get();
+        $data["profit_providing_log"] = $profit_provided_log;
+
+        return view("client.mlmDashboard", $data);
 
     }
 
@@ -56,7 +102,6 @@ class MlmDashboardController extends MyController
         $data["sponser"] = $sponser;
         return view('client.mlmJoin', $data);
     }
-
     public function registerMLM(Request $request){
 
         if(!Auth()->check()){
@@ -99,5 +144,15 @@ class MlmDashboardController extends MyController
 
         $this->ajax_response($this->STATUS_SUCCESS, $this->STATUS_CODE_SUCCESS);
 
+    }
+
+    public function getProvidedProfit(Request $request){
+        // $profit_provided_log = FriendProfitHistory::where("from",Auth()->user()->id)->get();
+        // if(count($profit_provided_log)){
+        //     foreach($profit_provided_log as $item){
+
+        //     }
+        // }
+        // $this->ajax_response($this->STATUS_SUCCESS, $this->STATUS_CODE_SUCCESS, $profit_provided_log);
     }
 }

@@ -63,7 +63,7 @@
                 <h2 class="color-white">{{@$course->title}}</h2>
                 <p class="color-white">{{@$course->mini_desc}}</p>
                 <div class="button-bar display-flex justify-content-center">
-                    <a href="{{route('profile.index',['type' => 'subscription','course' => $course->id])}}" class="button-two course-buy">Buy now</a>
+                    <a href="#" class="button-two course-buy">Buy now</a>
                 </div>
             </div>
             <div class="col-md-12 row title-bar">
@@ -174,6 +174,11 @@
 <script>
 $(document).ready(function() {
     console.log("Service Detail page init!");
+    $(".course-buy").on("click", function(e){
+        e.preventDefault();
+        localStorage.setItem("check-course",0);
+        window.location.href = "/profile?type=subscription&course="+"{{$course->id}}";
+    });
 });
 </script>
 @endsection

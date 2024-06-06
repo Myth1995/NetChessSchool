@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('payment_type')->default('ncs');
             $table->string('description')->nullable();
             $table->string('currency')->default('NCS');
-            $table->integer('amount');
+            $table->float('amount');
             $table->integer('status')->default(0);
             $table->timestamps();
         });

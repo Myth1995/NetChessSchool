@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PaymentNcsHistory;
+use App\Models\PaymentPackageHistories;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 
@@ -54,6 +56,9 @@ class ProfileController extends MyController
             $current_deadline = "";
             $result_deadline = date( "Y-m-d", strtotime(date('Y-m-d H:i:s') . " + 1 Month +1 Day") );
         }
+
+        $data["ncs_histories"] = PaymentNcsHistory::where("user_id", Auth()->user()->id)->orderBy("created_at","desc")->get();
+        $data["package_histories"] = PaymentPackageHistories::where("user_id", Auth()->user()->id)->orderBy("created_at","desc")->get();
 
         $data["current_deadline"] = $current_deadline;
         $data["purchase_deadline"] = $result_deadline;

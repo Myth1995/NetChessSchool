@@ -95,6 +95,16 @@
                                 aria-selected="false">Subscriptions</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-target="package-log" id="package-log-tab" data-toggle="tab"
+                                href="#package-log" role="tab" aria-controls="package-log-panel"
+                                aria-selected="false">Package Purchase Log</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-target="ncs-log" id="ncs-log-tab" data-toggle="tab"
+                                href="#ncs-log" role="tab" aria-controls="ncs-log-panel"
+                                aria-selected="false">Ncs Purchase Log</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-target="setting" id="setting-tab" data-toggle="tab"
                                 href="#setting-tab-panel" role="tab" aria-controls="setting-tab-panel"
                                 aria-selected="false">Settings</a>
@@ -136,19 +146,19 @@
                         <div class="table-responsive">
 
 
-                            <table id="mytable" class="table table-bordred table-striped">
+                            <table class="table table-bordred table-striped">
 
                                 <thead>
                                     <th>Name</th>
                                     <th class="text-center">Started Time</th>
                                     <th class="text-center">Result</th>
                                     <th class="text-center">Deadline time</th>
-                                    <th class="text-center">Deadline extension</th>
+                                    <th class="text-center">Extension</th>
                                 </thead>
                                 <tbody class="user-subscription-list">
                                     @foreach ($all_course as $course)
                                         <tr>
-                                            <td class="text-left">{{@$course->Service->title}}</td>
+                                            <td class="text-left {{ $course->id == @$purchase_course->id ? 'background-blue color-white' : '' }}">{{@$course->Service->title}}</td>
                                             <td class="text-center">{{date( "Y-m-d", strtotime($course->created_at) )}}</td>
                                             @php
                                                 $badge_text = "progressing";
@@ -163,10 +173,58 @@
                                                 }
                                             @endphp
                                             <td class="text-center"><span class="badge {{$badge_color}} color-white">{{$badge_text}}</span></td>
-                                            <td class="text-center permit-period-time {{ $course->id == @$purchase_course->id ? 'background-blue color-white' : '' }} " >{{date( "Y-m-d", strtotime($course->permit_period) )}}</td>
+                                            <td class="text-center permit-period-time  " >{{date( "Y-m-d", strtotime($course->permit_period) )}}</td>
                                             <td class="text-center">
-                                                <a data-course-id="{{$course->id}}" class="button button-small btn-upgrade-deadline"><i class="fa fa-calendar"></i></a>
+                                                <a data-course-id="{{$course->course_id}}" class="button button-small btn-upgrade-deadline"><i class="fa fa-calendar"></i></a>
                                             </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="package-log-tab-panel" role="tabpanel" aria-labelledby="setting-tab">
+                        <div class="table-responsive">
+                            <table class="table table-bordred table-striped">
+
+                                <thead>
+                                    <th>Name</th>
+                                    <th class="text-center">Purchased Time</th>
+                                    <th class="text-center">Payment Type</th>
+                                    <th class="text-center">Payment Amount</th>
+                                </thead>
+                                <tbody class="user-subscription-list">
+                                    @foreach ($package_histories as $history)
+                                        <tr>
+                                            <td class="text-left">{{@$history->Service->title}}</td>
+                                            <td class="text-center">{{date( "Y-m-d H:i:s", strtotime($history->created_at) )}}</td>
+                                            <td class="text-center " >{{$history->currency}}</td>
+                                            <td class="text-center">{{$history->amount}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="ncs-log-tab-panel" role="tabpanel" aria-labelledby="setting-tab">
+                        <div class="table-responsive">
+                            <table class="table table-bordred table-striped">
+
+                                <thead>
+                                    <th>Name</th>
+                                    <th class="text-center">Purchased Time</th>
+                                    <th class="text-center">Payment Type</th>
+                                    <th class="text-center">Payment Amount</th>
+                                </thead>
+                                <tbody class="user-subscription-list">
+                                    @foreach ($ncs_histories as $history)
+                                        <tr>
+                                            <td class="text-left">{{@$history->ncs_amount}} NCS</td>
+                                            <td class="text-center">{{date( "Y-m-d H:i:s", strtotime($history->created_at) )}}</td>
+                                            <td class="text-center" >{{$history->currency}}</td>
+                                            <td class="text-center">{{$history->payment_amount}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -188,6 +246,7 @@
 @section('custom_js')
 
 <script>
+
 toastr.options = {
     closeButton: false,
     debug: false,
@@ -264,6 +323,10 @@ function purchaseAlarm(alarm_html){
                             confirmButtonClass: 'button button-small',
                             confirmButtonColor: "",
                             cancelButtonColor: ""
+                        }).then((result) => {
+                            if (result.value){
+                                location.reload();
+                            }
                         });
                     }, function(code){
                         if(code == "40"){
@@ -272,7 +335,6 @@ function purchaseAlarm(alarm_html){
                             text: 'Excuse me, Do you have not enuough coin.',
                             type: 'warning',
                             class: 'Course-Purchasing-success-alarm',
-                            html: alarm_html,
                             showCancelButton: false,
                             confirmButtonText: 'okay',
                             confirmButtonClass: 'button button-small',
@@ -287,10 +349,12 @@ function purchaseAlarm(alarm_html){
 
 $(document).ready(function() {
     console.log("profile page init!");
-
+    let check_course = localStorage.getItem("check-course");
+    
+    localStorage.setItem("check-course",1);
     let page_type = "{{$type}}";
 
-    if (page_type == "subscription") {
+    if (page_type == "subscription" ) {
         $("#myTab").find(".nav-link").removeClass("active");
         $("#subscription-tab").addClass("active");
         $("#myTabContent").find(".tab-pane").removeClass("show");
@@ -298,10 +362,11 @@ $(document).ready(function() {
         $("#subscription-tab-panel").addClass("show");
         $("#subscription-tab-panel").addClass("active");
 
-        var alarm_html = '<small>{{$current_deadline ? "Current deadline: " . $current_deadline : ""}}</small><br><small>Deadline by purchasing: {{@$purchase_deadline}}</small><br><small>Price: {{@$course->Service->price}} NCS</small><br><input hidden class="purchase-course-id" type="text" data-course-id="{{@$purchase_course_id}}">';
-        purchaseAlarm(alarm_html);
-    }else{
-
+        if(check_course == 0){
+            var alarm_html = '<small>{{$current_deadline ? "Current deadline: " . $current_deadline : ""}}</small><br><small>Deadline by purchasing: {{@$purchase_deadline}}</small><br><small>Price: {{@$course->Service->price}} NCS</small><br><input hidden class="purchase-course-id" type="text" data-course-id="{{@$purchase_course_id}}">';
+            purchaseAlarm(alarm_html);   
+        }
+        
     }
 
     $(".btn-upgrade-deadline").on("click", function(e){
@@ -310,11 +375,7 @@ $(document).ready(function() {
         if(course_id == null ){
             return false;
         }
-        let deadline_date = $(this).closest("tr").find(".permit-period-time").text().trim();
-        var deadline_obj = new Date(deadline_date);
-        var update_deadline = deadline_obj.addMonths(1);
-        console.log(update_deadline.getMonth());
-        let alarm_html = '<small>'+deadline_date+'</small><br><small>Deadline by purchasing: {{@$purchase_deadline}}</small><br><small>Price: 12 NCS</small><br><input hidden class="purchase-course-id" type="text" data-course-id="'+course_id+'">';
+        window.location.href = "/course/"+course_id;
     });
 
     $(".btn-buy-ncs").on("click", function(e) {
@@ -335,12 +396,10 @@ $(document).ready(function() {
             .then((result) => {
                 if (result.value) {
                     let amount = $(".ncs-purchasing-value").val().trim();
-                    amount = Math.round(amount * 1);
                     amount = Math.abs(amount);
                     if (amount < 1) {
                         return false;
                     }
-
                     window.location.href = "stripe/checkout?ncs=" + amount;
                 }
             });

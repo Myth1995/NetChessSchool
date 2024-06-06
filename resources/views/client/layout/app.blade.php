@@ -26,6 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&amp;display=swap"
         rel="stylesheet">
     <!-- Favicon -->
+    <link rel="apple-touch-icon-precomposed" href="http://static.jstree.com/3.3.16/assets/apple-touch-icon-precomposed.png" />
     <!-- Site All Style Sheet Css -->
     <link href="{{asset('assets/chess-assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/chess-assets/css/font-awesome.min.css')}}" rel="stylesheet">

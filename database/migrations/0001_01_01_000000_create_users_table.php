@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->enum('gender', ['male','female'])->default('male');
             $table->string('avatar')->nullable();
-            $table->integer('ncs_coin')->default(0);
+            $table->float('ncs_coin',8,2)->default(0);
             $table->integer('sponser_id')->nullable();
             $table->date('birthday');
             $table->string('age');

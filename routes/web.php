@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('stripe/checkout/success', [StripePaymentController::class, 'stripeCheckoutSuccess'])->name('stripe.checkout.success');
 
     Route::post('course/purchase', [CourseController::class, 'coursePurchase'])->name('course.purchase');
+
+    Route::post('mlm/provided', [MlmDashboardController::class, 'getProvidedProfit'])->name('mlm.profit.provided');
     
 });
 

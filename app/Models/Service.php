@@ -13,4 +13,12 @@ class Service extends Model
     public function Subscriptions(){
         return $this->hasMany('id');
     }
+
+    public function PaymentPackageHistories(){
+        return $this->hasMany('id');
+    }
+
+    public function FriendProfitHistory(){
+        return $this->hasMany('id');
+    }
 }

@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Invite extends Model
 {
     use HasFactory;
+
+    public function User(){
+        return $this->belongsTo(User::class ,'to','id');
+    }
 }

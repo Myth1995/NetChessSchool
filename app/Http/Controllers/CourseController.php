@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FriendProfitHistory;
 use App\Models\Service;
 use App\Models\Lesson;
 use App\Models\PaymentPackageHistories;
@@ -71,6 +72,49 @@ class CourseController extends MyController
         User::where("id", Auth()->user()->id)->update([
             "ncs_coin"=> $user_row->ncs_coin - $course_price,
         ]);
+
+        $profit_user = array();
+        $first_sponser = Auth()->user()->sponser_id;
+        if(isset($first_sponser)){
+            array_push($profit_user, $first_sponser);   
+            $second_sponser = User::find($first_sponser);
+        }
+        if(isset($second_sponser) && isset($second_sponser->sponser_id) ){
+            array_push($profit_user, $second_sponser->sponser_id);
+            $third_sponser = User::find($second_sponser->sponser_id);
+        }
+        if(isset($third_sponser) && isset($third_sponser->sponser_id) ){
+            array_push($profit_user, $third_sponser->sponser_id);
+            $forth_sponser = User::find($third_sponser->sponser_id);
+        }
+        if(isset($forth_sponser) && isset($forth_sponser->sponser_id)){
+            array_push($profit_user, $forth_sponser->sponser_id);
+            $fifth_sponser = User::find($forth_sponser->sponser_id);
+        }
+        if(isset($fifth_sponser) && isset($fifth_sponser->sponser_id)){
+            array_push($profit_user, $fifth_sponser->sponser_id);
+        }
+
+        if(count($profit_user) > 0){
+            foreach($profit_user as $key => $id){
+                User::where("id", $id)->increment('ncs_coin', 1);
+                $friend_profit = new FriendProfitHistory();
+                $friend_profit->from = Auth()->user()->id;
+                $friend_profit->to = $id;
+                $friend_profit->package_id = $course_id;
+                $friend_profit->profit_amount = 1;
+                $friend_profit->save();
+            }
+        }
+
+        $admin_profit = $course_price - count($profit_user);
+        //Friend MLM Add Coin
+        $admin_row = User::find(1);
+        if(isset($admin_row)){
+            $admin_coin = $admin_row->ncs_coin;
+            $admin_coin = $admin_coin + $admin_profit;
+            User::where('id',1)->update(['ncs_coin'=> $admin_coin]);
+        }
 
         //Payment History Saving
         $payment_package_history = new PaymentPackageHistories();

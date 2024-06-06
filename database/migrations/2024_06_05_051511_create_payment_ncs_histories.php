@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('payment_ncs_histories', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('ncs_amount');
+            $table->float('ncs_amount');
             $table->string('payment_type')->default('stripe');
             $table->text('session_id');
-            $table->integer('payment_amount');
+            $table->float('payment_amount');
             $table->string('currency')->default('PLN');
             $table->integer('status')->default(1);
             $table->timestamps();

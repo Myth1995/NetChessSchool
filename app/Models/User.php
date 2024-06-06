@@ -63,4 +63,12 @@ class User extends Authenticatable
         ];
     }
 
+    public function FriendProfitHistory(){
+        return $this->hasMany('id');
+    }
+
+    public function Invite(){
+        return $this->hasMany('id');
+    }
+
 }
