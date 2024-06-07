@@ -17,6 +17,11 @@
     color: #818182;
     font-weight: 600;
 }
+
+.btn-buy-ncs:hover{
+    color: white!important;
+    border-color: white!important;
+}
 </style>
 @endsection
 @section('content')
@@ -90,8 +95,8 @@
                 <div class="profile-head">
                     <div class="proile-rating display-flex align-items-flex-end justify-content-space-between position-relative"
                         style="margin-top: 0;">
-                        <a href="#" class="button button-small btn-buy-ncs">BUY NCS</a>
-                        <div class="position-absolute small-info"><i class="fa fa-info-circle"></i>( 1 * NCS = 10 * PLN
+                        <a href="#" class="button button-small btn-buy-ncs" style="border-color: #495057; color: #495057;">BUY NCS</a>
+                        <div class="position-absolute small-info"><i class="fa fa-info-circle" style="padding-bottom: 1px;"></i>( 1 * NCS = 10 * PLN
                             )</div>
                     </div>
                     <ul class="nav nav-tabs my-info-tabs" id="myTab" role="tablist" style="margin-top: 1rem;">

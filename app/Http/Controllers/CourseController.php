@@ -37,8 +37,21 @@ class CourseController extends MyController
         return view("client.courseList", $data);
     }
 
-    public function detail(){
-        return view('client.courseDetail');
+    public function detail($id){
+
+        if($id == null || $id == ""){
+            return redirect()->back();
+        }
+
+        // $check_row = Subscription::where("course_id", $id)->where('user_id', Auth()->user()->id)->where("status",1)->first();
+        // if(!isset($check_row->id)){
+        //     return redirect()->back();
+        // }
+
+        $lesson_row = Lesson::where("course_id", $id)->get();
+        $data['lessons'] = $lesson_row;
+
+        return view('client.courseDetail', $data);
     }
 
     public function coursePurchase(Request $request){

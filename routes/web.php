@@ -19,7 +19,7 @@ Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::get('logout', [LoginController::class, 'logout'])->name('login.out');
 Route::get('service', [ServiceController::class, 'index'])->name('service.index');
 Route::get('course/{id}', [CourseController::class, 'index'])->name('course.index');
-Route::get('course/detail', [CourseController::class, 'detail'])->name('course.detail');
+Route::get('course/detail/{id}', [CourseController::class, 'detail'])->name('course.detail');
 Route::get('course/list/{id}', [CourseController::class, 'couseList'])->name('course.list');
 
 Route::group(['middleware' => ['auth']], function () {

@@ -25,7 +25,7 @@
 }
 
 #jstree1{
-    background: lightskyblue;
+    /* background: lightskyblue; */
     padding: 0 10px 1rem 0.5rem;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .table>:not(caption)>*>*{
-    background: lightskyblue;
+    /* background: lightskyblue; */
     text-align: center!important;
 }
 
@@ -75,11 +75,11 @@
             <div class="col-md-12 col-sm-12">
                 <div class="tab-content profile-tab my-info-detail-panel" id="myTabContent">
                     <div class="tab-pane fade show active" id="couse-tab-panel" role="tabpanel"
-                        aria-labelledby="couse-tab">
+                        aria-labelledby="couse-tab" style="margin-top: 2rem;">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="profile-head">
-                                    <div class=" position-relative background-skyblue" style="padding: 1rem 10px 10px 1rem;">
+                                    <div class=" position-relative" style="padding: 1rem 10px 10px 1rem;">
                                         <small style="padding: 0; font-weight: bold; color:#495057;   ">INVITE
                                             URL</small>
                                         <h1 style="font-size: 20px; margin-top: 0.5rem; color: #3d1846; font-weight: bold;">
@@ -92,7 +92,7 @@
                                 <div id="jstree1" class="demo jstree jstree-1 jstree-default" role="tree"
                                     aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_1"
                                     aria-busy="false" style="padding-top: 1rem;">
-                                    <small style="padding: 0; font-weight: bold; color:#495057; background: lightskyblue; padding-left: 0.5rem;">MY FRIENDS</small>
+                                    <small style="padding: 0; font-weight: bold; color:#495057; padding-left: 0.5rem;">MY FRIENDS</small>
                                     <ul class="jstree-container-ul jstree-children" role="presentation" style="padding-top: 1rem;">
                                         @if(count($my_friends))
                                         @foreach ($my_friends as $friend)
@@ -219,7 +219,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="subscription-tab-panel" role="tabpanel"
-                        aria-labelledby="subscription-tab">
+                        aria-labelledby="subscription-tab" style="margin-top: 3rem;">
                         <div class="table-responsive">
                             <table class="table table-bordred table-striped">
 
@@ -245,7 +245,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="subscription1-tab-panel" role="tabpanel"
-                        aria-labelledby="subscription1-tab">
+                        aria-labelledby="subscription1-tab"  style="margin-top: 3rem;">
                         <div class="table-responsive">
                             <table class="table table-bordred table-striped">
 

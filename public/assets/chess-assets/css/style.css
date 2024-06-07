@@ -2439,7 +2439,11 @@ textarea:focus {
 
 /* My Custom Css */
 .display-flex{
-	display: flex;
+	display: flex!important;
+}
+
+.display-none{
+	display: none!important;
 }
 
 .circle-radius{
@@ -2640,7 +2644,7 @@ textarea:focus {
 	}	
 
 	.services-info .course-meta-info{
-		justify-content: center;
+		justify-content: left;
 	}
 
 	.services-info .instructor-bar{

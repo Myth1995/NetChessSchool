@@ -63,6 +63,9 @@
                 <h2 class="color-white">{{@$course->title}}</h2>
                 <p class="color-white">{{@$course->mini_desc}}</p>
                 <div class="button-bar display-flex justify-content-center">
+                    @if(@$course->parent)
+                    <a href="{{route('course.detail',@$course->id)}}" class="button-two course-detail" style="margin-right: 1rem;">Go now</a>
+                    @endif
                     <a href="#" class="button-two course-buy">Buy now</a>
                 </div>
             </div>
@@ -85,7 +88,7 @@
                         </div>
                         <div class="service-title-item">
                             <h6 class="color-white" style="font-size: 12px; padding-bottom: 5px;">price</h6>
-                            <span class="color-white">{{@$course->price}} <small>NCS</small></span>
+                            <span class="color-white">{{($course->ncs_coin != null && $course->ncs_coin != 0) ? $course->ncs_coin : 0 }} <small>NCS</small></span>
                         </div>
                     </div>
                 </div>
