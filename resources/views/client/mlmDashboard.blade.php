@@ -5,46 +5,39 @@
 <link href="{{asset('assets/chess-assets/css/profile.css')}}" rel="stylesheet">
 <link href="{{asset('assets/tree/profile.css')}}" rel="stylesheet">
 <style>
-ul,
-#myUL {
-    list-style-type: none;
-    padding-left: 40px;
+
+.fa-user{
+    padding-right: 6px;
+    font-weight: 600;
+    border: none;
+    color: #495057;
+    font-size: 16px;
 }
 
-#myUL {
-    margin: 0;
-    padding: 0;
+.jstree-anchor{
+    font-weight: 600;
+    border: none;
+    color: #495057;
 }
 
-.caret {
-    cursor: pointer;
-    -webkit-user-select: none;
-    /* Safari 3.1+ */
-    -moz-user-select: none;
-    /* Firefox 2+ */
-    -ms-user-select: none;
-    /* IE 10+ */
-    user-select: none;
+.jstree-icon.jstree-ocl{
+    margin-right: 5px;
 }
 
-.caret::before {
-    content: "\25B6";
-    color: black;
-    display: inline-block;
-    margin-right: 6px;
+#jstree1{
+    background: lightskyblue;
+    padding: 0 10px 1rem 0.5rem;
 }
 
-.caret-down::before {
-    transform: rotate(90deg);
+.jstree-default .jstree-leaf>.jstree-ocl{
+    margin-right: 5px;
 }
 
-.nested {
-    display: none;
+.table>:not(caption)>*>*{
+    background: lightskyblue;
+    text-align: center!important;
 }
 
-.active {
-    display: block;
-}
 </style>
 <link rel="stylesheet" href="http://static.jstree.com/3.3.16/assets/dist/themes/default/style.min.css" />
 
@@ -86,80 +79,142 @@ ul,
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="profile-head">
-                                    <div class=" position-relative background-skyblue" style="padding: 10px;">
+                                    <div class=" position-relative background-skyblue" style="padding: 1rem 10px 10px 1rem;">
                                         <small style="padding: 0; font-weight: bold; color:#495057;   ">INVITE
                                             URL</small>
-                                        <h1 style="font-size: 20px; margin-top: 0.5rem; color: #495057;">
+                                        <h1 style="font-size: 20px; margin-top: 0.5rem; color: #3d1846; font-weight: bold;">
                                             {{url('mlm/join/'.Auth()->user()->user_name)}}
                                         </h1>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <ul id="myUL">
-                                    @if(count($my_friends))
-                                    @foreach($my_friends as $index => $friend)
-                                    @if(count($friend[1]))
-                                    <li><span class="fa fa-user"><i class="jstree-icon jstree-ocl"
-                                                role="presentation"></i>{{$friend[0]}}</span>
-                                        <ul class="nested active">
-                                            @php
-                                            $children = $friend[1];
-                                            @endphp
-                                            @foreach ($children as $friend)
-                                            @if(count($friend[1]))
-                                            <li><span class="fa fa-user">{{$friend[0]}}</span>
-                                                <ul class="nested active">
-                                                    @php
-                                                    $children = $friend[1];
-                                                    @endphp
-                                                    @foreach ($children as $friend)
-                                                    @if(count($friend[1]))
-                                                    <li><span class="fa fa-user">{{$friend[0]}}</span>
-                                                        <ul class="nested active">
-                                                            @php
-                                                            $children = $friend[1];
-                                                            @endphp
-                                                            @foreach ($children as $friend)
-                                                            @if(count($friend[1]))
-                                                            <li><span class="fa fa-user">{{$friend[0]}}</span>
-                                                                <ul class="nested active">
-                                                                    @php
-                                                                    $children = $friend[1];
-                                                                    @endphp
-                                                                    @foreach ($children as $friend)
-                                                                    <li><span class="fa fa-user">{{$friend[0]}}</span>
-                                                                    </li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </li>
-                                                            @else
-                                                            <li><span class="fa fa-user">{{$friend[0]}}</span></li>
-                                                            @endif
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                    @else
-                                                    <li><span class="fa fa-user">{{$friend[0]}}</span></li>
-                                                    @endif
-                                                    @endforeach
-                                                </ul>
-                                            </li>
-                                            @else
-                                            <li><span class="fa fa-user">{{$friend[0]}}</span></li>
-                                            @endif
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                    @else
-                                    <li><span class="fa fa-user">{{$friend[0]}}</span></li>
-                                    @endif
-                                    @endforeach
-                                    @endif
-                                </ul>
-                            </div>
-                            <div class="col-md-12">
-                                <div id="data" class="demo"></div>
+                                <div id="jstree1" class="demo jstree jstree-1 jstree-default" role="tree"
+                                    aria-multiselectable="true" tabindex="0" aria-activedescendant="j1_1"
+                                    aria-busy="false" style="padding-top: 1rem;">
+                                    <small style="padding: 0; font-weight: bold; color:#495057; background: lightskyblue; padding-left: 0.5rem;">MY FRIENDS</small>
+                                    <ul class="jstree-container-ul jstree-children" role="presentation" style="padding-top: 1rem;">
+                                        @if(count($my_friends))
+                                        @foreach ($my_friends as $friend)
+                                        @if(count($friend[1]))
+                                        <li role="none" id="j1_1" class="jstree-node  jstree-open">
+                                            <i class="jstree-icon jstree-ocl" role="presentation"></i>
+                                            <a class="jstree-anchor" href="#" tabindex="-1" role="treeitem"
+                                                aria-selected="false" aria-level="1" aria-expanded="true"
+                                                id="j1_1_anchor"><i class="fa fa-user"
+                                                    role="presentation"></i>{{$friend[0]}}</a>
+                                            <ul role="group" class="jstree-children">
+                                                @php
+                                                $children = $friend[1];
+                                                @endphp
+                                                @foreach ($children as $friend)
+                                                @if(count($friend[1]))
+                                                <li role="none" id="j1_1" class="jstree-node  jstree-open">
+                                                    <i class="jstree-icon jstree-ocl" role="presentation"></i>
+                                                    <a class="jstree-anchor" href="#" tabindex="-1" role="treeitem"
+                                                        aria-selected="false" aria-level="1" aria-expanded="true"
+                                                        id="j1_1_anchor"><i class="fa fa-user"
+                                                            role="presentation"></i>{{$friend[0]}}</a>
+                                                    <ul role="group" class="jstree-children">
+                                                        @php
+                                                        $children = $friend[1];
+                                                        @endphp
+                                                        @foreach ($children as $friend)
+                                                        @if(count($friend[1]))
+                                                        <li role="none" id="j1_1" class="jstree-node  jstree-open">
+                                                            <i class="jstree-icon jstree-ocl" role="presentation"></i>
+                                                            <a class="jstree-anchor" href="#" tabindex="-1"
+                                                                role="treeitem" aria-selected="false" aria-level="1"
+                                                                aria-expanded="true" id="j1_1_anchor"><i
+                                                                    class="fa fa-user"
+                                                                    role="presentation"></i>{{$friend[0]}}</a>
+                                                            <ul role="group" class="jstree-children">
+                                                                @php
+                                                                $children = $friend[1];
+                                                                @endphp
+                                                                @foreach ($children as $friend)
+                                                                @if(count($friend[1]))
+                                                                <li role="none" id="j1_1"
+                                                                    class="jstree-node  jstree-open">
+                                                                    <i class="jstree-icon jstree-ocl"
+                                                                        role="presentation"></i>
+                                                                    <a class="jstree-anchor" href="#" tabindex="-1"
+                                                                        role="treeitem" aria-selected="false"
+                                                                        aria-level="1" aria-expanded="true"
+                                                                        id="j1_1_anchor"><i
+                                                                            class="fa fa-user"
+                                                                            role="presentation"></i>{{$friend[0]}}</a>
+                                                                    <ul role="group" class="jstree-children">
+                                                                        @php
+                                                                        $children = $friend[1];
+                                                                        @endphp
+                                                                        @foreach ($children as $friend)
+                                                                        <li role="none" id="j1_7"
+                                                                            class="jstree-node  jstree-leaf jstree-last">
+                                                                            <i class="jstree-icon jstree-ocl"
+                                                                                role="presentation"></i><a
+                                                                                class="jstree-anchor"
+                                                                                href="//www.jstree.com" tabindex="-1"
+                                                                                role="treeitem" aria-selected="false"
+                                                                                aria-level="1" id="j1_7_anchor"><i
+                                                                                    class="fa fa-user"
+                                                                                    role="presentation"></i>{{$friend[0]}}</a>
+                                                                        </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </li>
+                                                                @else
+                                                                <li role="none" id="j1_7"
+                                                                    class="jstree-node  jstree-leaf jstree-last"><i
+                                                                        class="jstree-icon jstree-ocl"
+                                                                        role="presentation"></i><a class="jstree-anchor"
+                                                                        href="//www.jstree.com" tabindex="-1"
+                                                                        role="treeitem" aria-selected="false"
+                                                                        aria-level="1" id="j1_7_anchor"><i
+                                                                            class="fa fa-user"
+                                                                            role="presentation"></i>{{$friend[0]}}</a>
+                                                                </li>
+                                                                @endif
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                        @else
+                                                        <li role="none" id="j1_7"
+                                                            class="jstree-node  jstree-leaf jstree-last"><i
+                                                                class="jstree-icon jstree-ocl"
+                                                                role="presentation"></i><a class="jstree-anchor"
+                                                                href="//www.jstree.com" tabindex="-1" role="treeitem"
+                                                                aria-selected="false" aria-level="1" id="j1_7_anchor"><i
+                                                                    class="fa fa-user"
+                                                                    role="presentation"></i>{{$friend[0]}}</a></li>
+                                                        @endif
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                                @else
+                                                <li role="none" id="j1_7" class="jstree-node  jstree-leaf jstree-last">
+                                                    <i class="jstree-icon jstree-ocl" role="presentation"></i><a
+                                                        class="jstree-anchor" href="//www.jstree.com" tabindex="-1"
+                                                        role="treeitem" aria-selected="false" aria-level="1"
+                                                        id="j1_7_anchor"><i class="fa fa-user"
+                                                            role="presentation"></i>{{$friend[0]}}</a>
+                                                </li>
+                                                @endif
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                        @else
+                                        <li role="none" id="j1_7" class="jstree-node  jstree-leaf jstree-last"><i
+                                                class="jstree-icon jstree-ocl" role="presentation"></i><a
+                                                class="jstree-anchor" href="//www.jstree.com" tabindex="-1"
+                                                role="treeitem" aria-selected="false" aria-level="1" id="j1_7_anchor"><i
+                                                    class="fa fa-user"
+                                                    role="presentation"></i>{{$friend[0]}}</a></li>
+                                        @endif
+                                        @endforeach
+                                        @endif
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -177,7 +232,7 @@ ul,
                                 <tbody class="user-subscription-list">
                                     @foreach ($profit_earned_log as $history)
                                     <tr>
-                                        <td class="text-left">{{@$history->user->user_name}}</td>
+                                        <td class="text-left">{{@$history->fromUser->user_name}}</td>
                                         <td class="text-center">{{$history->service->title}}</td>
                                         <td class="text-center">{{$history->profit_amount}} NCS</td>
                                         <td class="text-center">
@@ -203,7 +258,7 @@ ul,
                                 <tbody class="user-subscription1-list">
                                     @foreach ($profit_providing_log as $history)
                                     <tr>
-                                        <td class="text-left">{{@$history->user->user_name}}</td>
+                                        <td class="text-left">{{@$history->toUser->user_name}}</td>
                                         <td class="text-center">{{$history->service->title}}</td>
                                         <td class="text-center">{{$history->profit_amount}} NCS</td>
                                         <td class="text-center">
@@ -228,59 +283,9 @@ ul,
 $(document).ready(function() {
     console.log("MLM DASHBOARD page init!");
 
-    // $('#data').jstree({
-    // 	'core' : {
-    // 		'data' : [
-    // 			{ "text" : "Root node", "children" : [
-    // 					{ "text" : "Child node 1" },
-    // 					{ "text" : "Child node 2" }
-    // 			]}
-    // 		]
-    // 	}
-    // });
-    $('#data').jstree({
-        'core': {
-            'data': [{
-                "text": "Root node",
-                "state": {
-                    "opened": true
-                },
-                "icon": "fa fa-user",
-                "children": [{
-                        "text": "Child node 1",
-                        "state": {
-                            "selected": true
-                        },
-                        "icon": "fa fa-user",
-                        "children": [{
-                            "text": "Child node 3",
-                            "state": {
-                                "disabled": true
-                            },
-                            "icon": "fa fa-user"
-                        }]
-                    },
-                    {
-                        "text": "Child node 2",
-                        "state": {
-                            "disabled": true
-                        },
-                        "icon": "fa fa-user"
-                    }
-                ]
-            }]
-        }
+    $("#jstree1").find("a").on("click", function(event){
+        event.preventDefault();
     });
-
-    var toggler = document.getElementsByClassName("caret");
-    var i;
-
-    for (i = 0; i < toggler.length; i++) {
-        toggler[i].addEventListener("click", function() {
-            this.parentElement.querySelector(".nested").classList.toggle("active");
-            this.classList.toggle("caret-down");
-        });
-    }
 
 });
 </script>

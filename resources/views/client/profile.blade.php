@@ -7,7 +7,12 @@
 .swal2-info {
     display: none !important;
 }
-.swal2-container small{
+
+.display-none{
+    display: none!important;
+}
+
+.swal2-container small {
     font-size: 14px;
     color: #818182;
     font-weight: 600;
@@ -21,17 +26,32 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="profile-img">
-                    <img src="{{asset('assets/chess-assets/img/avatar/teacher.jpg')}}" alt="" />
+                    <img class="avatar-image" src="{{ asset('storage/avatars/'.Auth()->user()->avatar) }}" alt="" />
                     <div class="file btn btn-lg btn-primary">
                         Change Avatar
-                        <input type="file" name="file" />
+                        <input type="file" name="file" class="btn-change-image" />
                     </div>
                 </div>
+                <div class="profile-btn-bar display-flex justify-content-center display-none">
+                    <a class="button button-small upload-image" style="margin-top: 0; font-size: 12px; padding: 0 10px!important">upload</a>
+                </div>
                 <div class="profile-work row">
-                    <div class="col-md-6 col-sm-12 info-item-bar">
+                    <div class="col-md-12 col-sm-12 info-item-bar">
                         <div class="info-item">
                             <p>USER NAME</p>
                             <a href="">{{ @$user->user_name }}</a><br />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 info-item-bar">
+                        <div class="info-item">
+                            <p>EMAIL</p>
+                            <a href="">{{ @$user->email }}</a><br />
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 info-item-bar">
+                        <div class="info-item">
+                            <p>NCS COIN</p>
+                            <a href="">{{ @$user->ncs_coin }}</a><br />
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12 info-item-bar">
@@ -68,18 +88,9 @@
             </div>
             <div class="col-md-8">
                 <div class="profile-head">
-                    <h4>
-                        {{ @$user->email }}
-                    </h4>
-                    <div class="score-bar">
-                        <h1 class="ncs-coin-title color-yellow" style="font-size: 50px;">
-                            <span data-value="{{ @$user->ncs_coin }}" class="coin-value">{{ @$user->ncs_coin }}<small
-                                    style="color: #ff5722!important;">NCS</small></span>
-                        </h1>
-                    </div>
                     <div class="proile-rating display-flex align-items-flex-end justify-content-space-between position-relative"
                         style="margin-top: 0;">
-                        <a href="#" class="button button-small btn-buy-ncs">Buy now</a>
+                        <a href="#" class="button button-small btn-buy-ncs">BUY NCS</a>
                         <div class="position-absolute small-info"><i class="fa fa-info-circle"></i>( 1 * NCS = 10 * PLN
                             )</div>
                     </div>
@@ -100,9 +111,8 @@
                                 aria-selected="false">Package Purchase Log</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-target="ncs-log" id="ncs-log-tab" data-toggle="tab"
-                                href="#ncs-log" role="tab" aria-controls="ncs-log-panel"
-                                aria-selected="false">Ncs Purchase Log</a>
+                            <a class="nav-link" data-target="ncs-log" id="ncs-log-tab" data-toggle="tab" href="#ncs-log"
+                                role="tab" aria-controls="ncs-log-panel" aria-selected="false">Ncs Purchase Log</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-target="setting" id="setting-tab" data-toggle="tab"
@@ -157,27 +167,33 @@
                                 </thead>
                                 <tbody class="user-subscription-list">
                                     @foreach ($all_course as $course)
-                                        <tr>
-                                            <td class="text-left {{ $course->id == @$purchase_course->id ? 'background-blue color-white' : '' }}">{{@$course->Service->title}}</td>
-                                            <td class="text-center">{{date( "Y-m-d", strtotime($course->created_at) )}}</td>
-                                            @php
-                                                $badge_text = "progressing";
-                                                $badge_color = "background-brand";
-                                                if($course->result == 1){
-                                                    $badge_text = "passed";
-                                                    $badge_color = "background-green";
-                                                }
-                                                if($course->status == 2){
-                                                    $badge_text = "failed";
-                                                    $badge_color = "background-red";
-                                                }
-                                            @endphp
-                                            <td class="text-center"><span class="badge {{$badge_color}} color-white">{{$badge_text}}</span></td>
-                                            <td class="text-center permit-period-time  " >{{date( "Y-m-d", strtotime($course->permit_period) )}}</td>
-                                            <td class="text-center">
-                                                <a data-course-id="{{$course->course_id}}" class="button button-small btn-upgrade-deadline"><i class="fa fa-calendar"></i></a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td
+                                            class="text-left {{ $course->id == @$purchase_course->id ? 'background-blue color-white' : '' }}">
+                                            {{@$course->Service->title}}</td>
+                                        <td class="text-center">{{date( "Y-m-d", strtotime($course->created_at) )}}</td>
+                                        @php
+                                        $badge_text = "progressing";
+                                        $badge_color = "background-brand";
+                                        if($course->result == 1){
+                                        $badge_text = "passed";
+                                        $badge_color = "background-green";
+                                        }
+                                        if($course->status == 2){
+                                        $badge_text = "failed";
+                                        $badge_color = "background-red";
+                                        }
+                                        @endphp
+                                        <td class="text-center"><span
+                                                class="badge {{$badge_color}} color-white">{{$badge_text}}</span></td>
+                                        <td class="text-center permit-period-time  ">
+                                            {{date( "Y-m-d", strtotime($course->permit_period) )}}</td>
+                                        <td class="text-center">
+                                            <a data-course-id="{{$course->course_id}}"
+                                                class="button button-small btn-upgrade-deadline"><i
+                                                    class="fa fa-calendar"></i></a>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
 
@@ -196,12 +212,13 @@
                                 </thead>
                                 <tbody class="user-subscription-list">
                                     @foreach ($package_histories as $history)
-                                        <tr>
-                                            <td class="text-left">{{@$history->Service->title}}</td>
-                                            <td class="text-center">{{date( "Y-m-d H:i:s", strtotime($history->created_at) )}}</td>
-                                            <td class="text-center " >{{$history->currency}}</td>
-                                            <td class="text-center">{{$history->amount}}</td>
-                                        </tr>
+                                    <tr>
+                                        <td class="text-left">{{@$history->Service->title}}</td>
+                                        <td class="text-center">
+                                            {{date( "Y-m-d H:i:s", strtotime($history->created_at) )}}</td>
+                                        <td class="text-center ">{{$history->currency}}</td>
+                                        <td class="text-center">{{$history->amount}}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
 
@@ -220,12 +237,13 @@
                                 </thead>
                                 <tbody class="user-subscription-list">
                                     @foreach ($ncs_histories as $history)
-                                        <tr>
-                                            <td class="text-left">{{@$history->ncs_amount}} NCS</td>
-                                            <td class="text-center">{{date( "Y-m-d H:i:s", strtotime($history->created_at) )}}</td>
-                                            <td class="text-center" >{{$history->currency}}</td>
-                                            <td class="text-center">{{$history->payment_amount}}</td>
-                                        </tr>
+                                    <tr>
+                                        <td class="text-left">{{@$history->ncs_amount}} NCS</td>
+                                        <td class="text-center">
+                                            {{date( "Y-m-d H:i:s", strtotime($history->created_at) )}}</td>
+                                        <td class="text-center">{{$history->currency}}</td>
+                                        <td class="text-center">{{$history->payment_amount}}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
 
@@ -246,7 +264,6 @@
 @section('custom_js')
 
 <script>
-
 toastr.options = {
     closeButton: false,
     debug: false,
@@ -265,74 +282,74 @@ toastr.options = {
     hideMethod: "fadeOut",
 };
 
-function getAllSubscription(){
+function getAllSubscription() {
     let formData = new FormData();
     formData.append('_token', '{{csrf_token()}}');
-    sendRequest('{{route("profile.sub_all")}}',formData,function(data){
-        if(data.length > 0){
+    sendRequest('{{route("profile.sub_all")}}', formData, function(data) {
+        if (data.length > 0) {
             data.map((item, index) => {
                 console.log(index);
                 let html = '<tr> \n' +
-                                            '<td class="text-left"></td>'+
-                                            '<td class="text-center"></td>' +
-                                            '<td class="text-center"><span class="badge color-white"></span></td>'+
-                                            '<td class="text-center " ></td>'+
-                                            '<td class="text-center">' + 
-                                                '<a class="button button-small btn-upgrade-deadline"><i class="fa fa-calendar"></i></a>'+
-                                            '</td>'+
-                                        '</tr>';
+                    '<td class="text-left"></td>' +
+                    '<td class="text-center"></td>' +
+                    '<td class="text-center"><span class="badge color-white"></span></td>' +
+                    '<td class="text-center " ></td>' +
+                    '<td class="text-center">' +
+                    '<a class="button button-small btn-upgrade-deadline"><i class="fa fa-calendar"></i></a>' +
+                    '</td>' +
+                    '</tr>';
             });
         }
-    }, function(code){
+    }, function(code) {
 
     });
 }
 
-function purchaseAlarm(alarm_html){
+function purchaseAlarm(alarm_html) {
     swal({
-                title: 'Course Purchasing',
-                type: 'info',
-                class: 'Course-Purchasing-alarm',
-                html: alarm_html,
-                showCancelButton: true,
-                confirmButtonText: 'Yes, Do it!',
-                confirmButtonClass: 'button',
-                cancelButtonText: 'No, cancel!',
-                confirmButtonClass: 'button button-small',
-                cancelButtonClass: 'button button-small',
-                confirmButtonColor: "",
-                cancelButtonColor: ""
-            })
-            .then((result) => {
-                if (result.value) {
-                    let course_id = $(".purchase-course-id").data('course-id');
+            title: 'Course Purchasing',
+            type: 'info',
+            class: 'Course-Purchasing-alarm',
+            html: alarm_html,
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Do it!',
+            confirmButtonClass: 'button',
+            cancelButtonText: 'No, cancel!',
+            confirmButtonClass: 'button button-small',
+            cancelButtonClass: 'button button-small',
+            confirmButtonColor: "",
+            cancelButtonColor: ""
+        })
+        .then((result) => {
+            if (result.value) {
+                let course_id = $(".purchase-course-id").data('course-id');
 
-                    let formData = new FormData();
-                    formData.append('_token', '{{csrf_token()}}');
-                    formData.append('course_id', course_id);
-                    sendRequest('{{route("course.purchase")}}', formData ,function(data){
-                        // getAllSubscription();+1
+                let formData = new FormData();
+                formData.append('_token', '{{csrf_token()}}');
+                formData.append('course_id', course_id);
+                sendRequest('{{route("course.purchase")}}', formData, function(data) {
+                    // getAllSubscription();+1
+                    swal({
+                        title: 'Purchase Successful!',
+                        text: 'thank you.',
+                        type: 'info',
+                        class: 'Course-Purchasing-success-alarm',
+                        html: alarm_html,
+                        showCancelButton: false,
+                        confirmButtonText: 'okay',
+                        confirmButtonClass: 'button button-small',
+                        confirmButtonColor: "",
+                        cancelButtonColor: ""
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    });
+                }, function(code) {
+                    if (code == "40") {
                         swal({
-                            title: 'Purchase Successful!',
-                            text: 'thank you.',
-                            type: 'info',
-                            class: 'Course-Purchasing-success-alarm',
-                            html: alarm_html,
-                            showCancelButton: false,
-                            confirmButtonText: 'okay',
-                            confirmButtonClass: 'button button-small',
-                            confirmButtonColor: "",
-                            cancelButtonColor: ""
-                        }).then((result) => {
-                            if (result.value){
-                                location.reload();
-                            }
-                        });
-                    }, function(code){
-                        if(code == "40"){
-                            swal({
                             title: 'Purchase Failed!',
-                            text: 'Excuse me, Do you have not enuough coin.',
+                            text: 'Excuse me, You have not enuough coin.',
                             type: 'warning',
                             class: 'Course-Purchasing-success-alarm',
                             showCancelButton: false,
@@ -340,21 +357,60 @@ function purchaseAlarm(alarm_html){
                             confirmButtonClass: 'button button-small',
                             confirmButtonColor: "",
                             cancelButtonColor: ""
-                            });
-                        }
-                    })
-                }
-            });
+                        });
+                    }
+                })
+            }
+        });
 }
 
 $(document).ready(function() {
+
     console.log("profile page init!");
+
+    $('.btn-change-image').change(function() {
+        var input = this;
+        $(".profile-btn-bar").removeClass("display-none");
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('.avatar-image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    });
+
+    $('.upload-image').click(function() {
+        var formData = new FormData();
+        formData.append('_token', _token);
+        formData.append('avatar', $('.btn-change-image')[0].files[0]);
+
+        $.ajax({
+            url: '/upload-avatar',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log('Image uploaded successfully');
+                toastr.success("Image uploaded successfully.");
+                // Handle success response
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error('Error uploading image:', error);
+                toastr.success("Error uploading image: ");
+                // Handle error response
+            }
+        });
+    });
+
     let check_course = localStorage.getItem("check-course");
-    
-    localStorage.setItem("check-course",1);
+
+    localStorage.setItem("check-course", 1);
     let page_type = "{{$type}}";
 
-    if (page_type == "subscription" ) {
+    if (page_type == "subscription") {
         $("#myTab").find(".nav-link").removeClass("active");
         $("#subscription-tab").addClass("active");
         $("#myTabContent").find(".tab-pane").removeClass("show");
@@ -362,20 +418,21 @@ $(document).ready(function() {
         $("#subscription-tab-panel").addClass("show");
         $("#subscription-tab-panel").addClass("active");
 
-        if(check_course == 0){
-            var alarm_html = '<small>{{$current_deadline ? "Current deadline: " . $current_deadline : ""}}</small><br><small>Deadline by purchasing: {{@$purchase_deadline}}</small><br><small>Price: {{@$course->Service->price}} NCS</small><br><input hidden class="purchase-course-id" type="text" data-course-id="{{@$purchase_course_id}}">';
-            purchaseAlarm(alarm_html);   
+        if (check_course == 0) {
+            var alarm_html =
+                '<small>{{$current_deadline ? "Current deadline: " . $current_deadline : ""}}</small><br><small>Deadline by purchasing: {{@$purchase_deadline}}</small><br><small>Price: {{@$course->Service->price}} NCS</small><br><input hidden class="purchase-course-id" type="text" data-course-id="{{@$purchase_course_id}}">';
+            purchaseAlarm(alarm_html);
         }
-        
+
     }
 
-    $(".btn-upgrade-deadline").on("click", function(e){
+    $(".btn-upgrade-deadline").on("click", function(e) {
         e.preventDefault();
         let course_id = $(this).data("course-id");
-        if(course_id == null ){
+        if (course_id == null) {
             return false;
         }
-        window.location.href = "/course/"+course_id;
+        window.location.href = "/course/" + course_id;
     });
 
     $(".btn-buy-ncs").on("click", function(e) {

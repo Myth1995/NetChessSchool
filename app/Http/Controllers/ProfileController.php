@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\PaymentNcsHistory;
 use App\Models\PaymentPackageHistories;
 use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends MyController
 {
@@ -70,4 +72,25 @@ class ProfileController extends MyController
         $subscription_row = Subscription::where('user_id', Auth()->user()->id)->where("status",1)->orderBy("created_at","desc")->get();
         $this->ajax_response($this->STATUS_SUCCESS, $this->STATUS_CODE_SUCCESS, $subscription_row);
     }
+
+    public function imageUploadPost(Request $request){
+
+        if ($request->hasFile('avatar') && $request->file('avatar')->isValid()) {
+            $avatar = $request->file('avatar');
+            $fileName = time() . '_' . $avatar->getClientOriginalName(); // Append timestamp to avoid duplicate file names
+            $path = $request->file('avatar')->storeAs('avatars', $fileName, 'public'); // Store in the public/uploads directory
+            
+            // Construct the public URL for the uploaded image
+            $imageUrl = asset('storage/' . $path);
+            User::where("id", Auth()->user()->id)->update([
+                'avatar' => $fileName
+            ]);
+
+            $this->ajax_response($this->STATUS_SUCCESS, $this->STATUS_CODE_SUCCESS);
+        } else {
+            $this->ajax_response($this->STATUS_ERROR, $this->STATUS_CODE_IMAGE_UPLOAD_ERROR);
+        }
+
+    }
+
 }

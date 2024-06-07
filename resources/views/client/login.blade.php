@@ -209,8 +209,10 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-holder form-holder-2">
-                                                <label class="special-label" for="country">Country:</label>
-                                                @include('client.components.country')
+                                                <fieldset>
+                                                        <legend>Country</legend>
+                                                        @include('client.components.country')
+                                                </fieldset>
                                             </div>
                                         </div>
                                         <div class="button-bar" style="text-align: right;">
@@ -384,36 +386,31 @@
                     $("#my_birthdate").closest("fieldset").css("border-color", "#ff5722");
                 }
 
+                // if(sendData["firstName"] != "" && sendData["lastName"] != "" && sendData["birthday"] != "" && sendData["email"] != "" && sendData["phoneNumber"] != "" && sendData["country"] != ""){
+                //     event.preventDefault();
+                //     let formData = new FormData();
+                //     sendRequest("{{route('login.email.check')}}",formData, function(data){
+                //         $(".btn-twice-step").removeClass("email-check");
+                //         $("#form-total-t-2").trigger("click");
+                //     }, function(code){
+                //         if(code == "17"){
+                //             toastr.warning("EMAIL REGISTRATION REPEATED!");   
+                //         }
+                //         if(code == "20"){
+                //             toastr.warning("EMAIL VERIFICATION FAILURE!");   
+                //         }
+                //     });
+                // }
+
                 if(sendData["firstName"] != "" && sendData["lastName"] != "" && sendData["birthday"] != "" && sendData["email"] != "" && sendData["phoneNumber"] != "" && sendData["country"] != ""){
-                    event.preventDefault();
-                    let formData = new FormData();
-                    formData.append('_token', _token);
-                    formData.append('age', sendData["age"]);
-                    formData.append('firstName', sendData["firstName"]);
-                    formData.append('lastName', sendData["lastName"]);
-                    formData.append('birthday', sendData["birthday"]);
-                    formData.append('email', sendData["email"]);
-                    formData.append('phoneNumber', sendData["phoneNumber"]);
-                    formData.append('country', sendData["country"]);
+                    event.preventDefault();    
+                    let setsendData = JSON.stringify(sendData);
+                    localStorage.setItem("sendData", setsendData);
 
-                    sendRequest("{{route('login.email.check')}}",formData, function(data){
-                        $(".btn-twice-step").removeClass("email-check");
-                        $("#form-total-t-2").trigger("click");
-                    }, function(code){
-                        if(code == "17"){
-                            toastr.warning("EMAIL REGISTRATION REPEATED!");   
-                        }
-
-                        if(code == "20"){
-                            toastr.warning("EMAIL VERIFICATION FAILURE!");   
-                        }
-                    });
-
+                    $(".btn-twice-step").removeClass("email-check");
+                    $("#form-total-t-2").trigger("click");
                 }
 
-                let setsendData = JSON.stringify(sendData);
-                localStorage.setItem("sendData", setsendData);
-                
             }
 
         });
@@ -446,14 +443,20 @@
             let suserName = curlData['userName'];
             let spassword = curlData['password'];
 
-            if (email == null || suserName == null || spassword == null) {
+            if (email == null || suserName == null || spassword == null || sendData["firstName"] == "" || sendData["lastName"] == "" || sendData["birthday"] == "" || sendData["email"] == "" || sendData["phoneNumber"] == "" || sendData["country"] == "") {
                 toastr.warning("Something went wrong!");
                 return false;
             }
 
             let formData = new FormData();
             formData.append('_token', _token);
-            formData.append('email', email);
+            formData.append('age', curlData["age"]);
+            formData.append('firstName', curlData["firstName"]);
+            formData.append('lastName', curlData["lastName"]);
+            formData.append('birthday', curlData["birthday"]);
+            formData.append('email', curlData["email"]);
+            formData.append('phoneNumber', curlData["phoneNumber"]);
+            formData.append('country', curlData["country"]);
             formData.append('userName', userName);
             formData.append('password', password);
 

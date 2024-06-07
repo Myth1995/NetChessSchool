@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->enum('gender', ['male','female'])->default('male');
-            $table->string('avatar')->nullable();
+            $table->string('avatar')->default('boy.jpg');
             $table->float('ncs_coin',8,2)->default(0);
             $table->integer('sponser_id')->nullable();
             $table->date('birthday');

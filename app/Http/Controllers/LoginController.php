@@ -21,15 +21,31 @@ class LoginController extends MyController
         $userName = $request->input('userName');
         $password = $request->input('password');
 
-        if($email == null || $userName == null || $password == null){
+        $age = $request->input('age');
+        $firstName = $request->input('firstName');
+        $lastName = $request->input('lastName');
+        $birthday = $request->input('birthday');
+        $phoneNumber = $request->input('phoneNumber');
+        $country = $request->input('country');
+        
+
+
+        if($email == null || $userName == null || $password == null || $age == null || $firstName == null || $lastName == null || $birthday == null || $phoneNumber == null || $country == null){
             $this->ajax_response($this->STATUS_ERROR, $this->STATUS_CODE_PARAM_ERROR);
             return;
         }
 
         $data = array(
+            'email' => $email,
             'user_name' => $userName,
             'password' => Hash::make($password),
-            'remember_token' => $request->input('_token')
+            'remember_token' => $request->input('_token'),
+            'age' => $age,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'birthday' => $birthday,
+            'phone_number' => $phoneNumber,
+            'country' => $country
         );
 
         $check_row = User::where("user_name", $userName)->first();
@@ -38,9 +54,9 @@ class LoginController extends MyController
             return;
         }
 
-        User::where("email", $email)->update($data);
+        User::create($data);
 
-        $this->ajax_response();
+        $this->ajax_response($this->STATUS_SUCCESS, $this->STATUS_CODE_SUCCESS);
     }
 
     public function login(Request $request)

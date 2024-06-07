@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use setasign\Fpdi\Fpdi;
 use DateTime;
 use URL;
+use Illuminate\Support\Facades\Storage;
 
 class MyController extends Controller
 {
@@ -40,6 +41,8 @@ class MyController extends Controller
 
     // 50 ~ 60 NCS
     protected $STATUS_CODE_NCS_COIN_ERROR = "40";
+
+    protected $STATUS_CODE_IMAGE_UPLOAD_ERROR = "50";
 
     public function __construct()
     {
