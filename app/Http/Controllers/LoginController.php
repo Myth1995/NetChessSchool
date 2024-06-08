@@ -20,7 +20,6 @@ class LoginController extends MyController
         $email = $request->input('email');
         $userName = $request->input('userName');
         $password = $request->input('password');
-
         $age = $request->input('age');
         $firstName = $request->input('firstName');
         $lastName = $request->input('lastName');
